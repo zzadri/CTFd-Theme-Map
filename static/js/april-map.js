@@ -43,7 +43,7 @@ if (root) {
   document.body.classList.add("april-map-body");
 
   boot().catch(error => {
-    console.error("Unable to initialize april-hacker-map", error);
+    console.error("Unable to initialize CTFd-Theme-Map", error);
     if (elements.countryStatus) {
       elements.countryStatus.textContent =
         "La carte n'a pas pu etre chargee correctement. Verifiez les assets du theme.";
