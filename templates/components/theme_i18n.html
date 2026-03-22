@@ -1,4 +1,6 @@
-{% set theme_lang = (((get_locale() or 'en') | string).split('_')[0] | lower) %}
+{% set theme_locale_raw = ((get_locale() or 'en') | string) %}
+{% set theme_locale = (theme_locale_raw | lower) %}
+{% set theme_lang = (theme_locale.split('_')[0] | lower) %}
 {% set locale_templates = {
   'en': 'components/i18n/en.html',
   'fr': 'components/i18n/fr.html',
@@ -6,8 +8,26 @@
   'es': 'components/i18n/es.html',
   'it': 'components/i18n/it.html',
   'pl': 'components/i18n/pl.html',
+  'ar': 'components/i18n/ar.html',
+  'zh_cn': 'components/i18n/zh_cn.html',
+  'zh_tw': 'components/i18n/zh_tw.html',
+  'ko': 'components/i18n/ko.html',
+  'ru': 'components/i18n/ru.html',
+  'pt_br': 'components/i18n/pt_br.html',
+  'sk': 'components/i18n/sk.html',
+  'ja': 'components/i18n/ja.html',
+  'vi': 'components/i18n/vi.html',
+  'ca': 'components/i18n/ca.html',
+  'el': 'components/i18n/el.html',
+  'fi': 'components/i18n/fi.html',
+  'ro': 'components/i18n/ro.html',
+  'sl': 'components/i18n/sl.html',
+  'sv': 'components/i18n/sv.html',
+  'he': 'components/i18n/he.html',
+  'uz': 'components/i18n/uz.html',
+  'sr': 'components/i18n/sr.html',
 } %}
-{% set locale_template = locale_templates.get(theme_lang, locale_templates['en']) %}
+{% set locale_template = locale_templates.get(theme_locale, locale_templates.get(theme_lang, locale_templates['en'])) %}
 {% import locale_template as locale_pack with context %}
 {% set theme_catalog = locale_pack.catalog %}
 
@@ -22,7 +42,7 @@
 {% macro script() -%}
   <script>
     window.init = window.init || {};
-    window.init.locale = {{ get_locale() | tojson }};
+    window.init.locale = {{ theme_locale_raw | tojson }};
     window.CTFD_THEME_I18N = {{ catalog_json() }};
   </script>
 {%- endmacro %}

@@ -164,6 +164,9 @@ All public theme text and the admin theme-settings labels are stored inside the 
 `templates/components/theme_i18n.html` routes the active locale, and each language lives in its own file under `templates/components/i18n/`.
 This keeps the i18n layer maintainable without any required core CTFd changes.
 
+The router supports the full CTFd locale list, including exact locale codes such as `zh_CN`, `zh_TW`, and `pt_BR`.
+The theme now ships dedicated translated locale files for every language exposed by the standard CTFd language selector.
+
 ## Public Naming
 
 The public project name is `CTFd-Theme-Map`.
