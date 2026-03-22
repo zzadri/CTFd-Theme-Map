@@ -1,43 +1,44 @@
+{% import "components/theme_i18n.html" as i18n with context %}
 <form>
   <div class="form-group">
-    <label for="theme-map-scope">Challenge Map</label>
+    <label for="theme-map-scope">{{ i18n.t('config', 'challenge_map_label') }}</label>
     <select class="form-control custom-select" id="theme-map-scope" name="map_scope">
-      <option value="europe">Europe</option>
-      <option value="world">World</option>
-      <option value="americas">Americas</option>
-      <option value="africa">Africa</option>
-      <option value="asia-pacific">Asia Pacific</option>
+      <option value="europe">{{ i18n.t('challenges', 'scope_europe') }}</option>
+      <option value="world">{{ i18n.t('challenges', 'scope_world') }}</option>
+      <option value="americas">{{ i18n.t('challenges', 'scope_americas') }}</option>
+      <option value="africa">{{ i18n.t('challenges', 'scope_africa') }}</option>
+      <option value="asia-pacific">{{ i18n.t('challenges', 'scope_asia_pacific') }}</option>
     </select>
     <small class="form-text text-muted">
-      Choisit la carte SVG et le scope des pays utilises sur la page challenges.
+      {{ i18n.t('config', 'challenge_map_help') }}
     </small>
   </div>
 
   <div class="form-group">
-    <label for="theme-map-texture">Map Texture</label>
+    <label for="theme-map-texture">{{ i18n.t('config', 'map_texture_label') }}</label>
     <select class="form-control custom-select" id="theme-map-texture" name="map_texture">
-      <option value="detailed">Detailed</option>
-      <option value="soft">Soft</option>
-      <option value="off">Off</option>
+      <option value="detailed">{{ i18n.t('config', 'texture_detailed') }}</option>
+      <option value="soft">{{ i18n.t('config', 'texture_soft') }}</option>
+      <option value="off">{{ i18n.t('config', 'texture_off') }}</option>
     </select>
     <small class="form-text text-muted">
-      Regle l'intensite de la texture de fond derriere la carte.
+      {{ i18n.t('config', 'map_texture_help') }}
     </small>
   </div>
 
   <div class="form-group">
-    <label for="theme-map-motion">Map Motion</label>
+    <label for="theme-map-motion">{{ i18n.t('config', 'map_motion_label') }}</label>
     <select class="form-control custom-select" id="theme-map-motion" name="map_motion">
-      <option value="off">Off</option>
-      <option value="on">On</option>
+      <option value="off">{{ i18n.t('config', 'motion_off') }}</option>
+      <option value="on">{{ i18n.t('config', 'motion_on') }}</option>
     </select>
     <small class="form-text text-muted">
-      Anime tres legerement les halos et la texture de fond derriere la carte.
+      {{ i18n.t('config', 'map_motion_help') }}
     </small>
   </div>
 
   <div class="form-group">
-    <label for="theme-map-zoom">Map Zoom (%)</label>
+    <label for="theme-map-zoom">{{ i18n.t('config', 'map_zoom_label') }}</label>
     <input
       class="form-control"
       id="theme-map-zoom"
@@ -49,12 +50,12 @@
       value="100"
     >
     <small class="form-text text-muted">
-      Controle le niveau de zoom global de la carte. Au-dessus de 100, la carte se rapproche.
+      {{ i18n.t('config', 'map_zoom_help') }}
     </small>
   </div>
 
   <div class="form-group">
-    <label for="theme-map-offset-x">Map Offset X (%)</label>
+    <label for="theme-map-offset-x">{{ i18n.t('config', 'map_offset_x_label') }}</label>
     <input
       class="form-control"
       id="theme-map-offset-x"
@@ -66,12 +67,12 @@
       value="0"
     >
     <small class="form-text text-muted">
-      Decale horizontalement la carte. Une valeur positive pousse la carte vers la droite.
+      {{ i18n.t('config', 'map_offset_x_help') }}
     </small>
   </div>
 
   <div class="form-group">
-    <label for="theme-map-offset-y">Map Offset Y (%)</label>
+    <label for="theme-map-offset-y">{{ i18n.t('config', 'map_offset_y_label') }}</label>
     <input
       class="form-control"
       id="theme-map-offset-y"
@@ -83,12 +84,12 @@
       value="0"
     >
     <small class="form-text text-muted">
-      Decale verticalement la carte. Une valeur positive pousse la carte vers le bas.
+      {{ i18n.t('config', 'map_offset_y_help') }}
     </small>
   </div>
 
   <div class="form-group">
-    <label for="theme-texture-dark-intensity">Dark Texture Intensity (%)</label>
+    <label for="theme-texture-dark-intensity">{{ i18n.t('config', 'texture_dark_intensity_label') }}</label>
     <input
       class="form-control"
       id="theme-texture-dark-intensity"
@@ -100,12 +101,12 @@
       value="100"
     >
     <small class="form-text text-muted">
-      Intensite de la texture sur le fond de carte en dark mode.
+      {{ i18n.t('config', 'texture_dark_intensity_help') }}
     </small>
   </div>
 
   <div class="form-group">
-    <label for="theme-texture-light-intensity">Light Texture Intensity (%)</label>
+    <label for="theme-texture-light-intensity">{{ i18n.t('config', 'texture_light_intensity_label') }}</label>
     <input
       class="form-control"
       id="theme-texture-light-intensity"
@@ -117,12 +118,12 @@
       value="135"
     >
     <small class="form-text text-muted">
-      Intensite de la texture sur le fond de carte en light mode.
+      {{ i18n.t('config', 'texture_light_intensity_help') }}
     </small>
   </div>
 
   <div class="form-group">
-    <label for="theme-glow-dark-intensity">Dark Glow Intensity (%)</label>
+    <label for="theme-glow-dark-intensity">{{ i18n.t('config', 'glow_dark_intensity_label') }}</label>
     <input
       class="form-control"
       id="theme-glow-dark-intensity"
@@ -134,12 +135,12 @@
       value="100"
     >
     <small class="form-text text-muted">
-      Intensite des halos derriere la carte en dark mode.
+      {{ i18n.t('config', 'glow_dark_intensity_help') }}
     </small>
   </div>
 
   <div class="form-group">
-    <label for="theme-glow-light-intensity">Light Glow Intensity (%)</label>
+    <label for="theme-glow-light-intensity">{{ i18n.t('config', 'glow_light_intensity_label') }}</label>
     <input
       class="form-control"
       id="theme-glow-light-intensity"
@@ -151,12 +152,12 @@
       value="115"
     >
     <small class="form-text text-muted">
-      Intensite des halos derriere la carte en light mode.
+      {{ i18n.t('config', 'glow_light_intensity_help') }}
     </small>
   </div>
 
   <div class="form-group">
-    <label for="theme-vignette-intensity">Vignette Intensity (%)</label>
+    <label for="theme-vignette-intensity">{{ i18n.t('config', 'vignette_intensity_label') }}</label>
     <input
       class="form-control"
       id="theme-vignette-intensity"
@@ -168,12 +169,12 @@
       value="100"
     >
     <small class="form-text text-muted">
-      Intensite du vignettage global autour de la carte.
+      {{ i18n.t('config', 'vignette_intensity_help') }}
     </small>
   </div>
 
   <div class="form-group">
-    <label for="theme-country-glow-intensity">Country Glow Intensity (%)</label>
+    <label for="theme-country-glow-intensity">{{ i18n.t('config', 'country_glow_intensity_label') }}</label>
     <input
       class="form-control"
       id="theme-country-glow-intensity"
@@ -185,12 +186,12 @@
       value="100"
     >
     <small class="form-text text-muted">
-      Force du glow au hover et a l'etat actif sur les pays.
+      {{ i18n.t('config', 'country_glow_intensity_help') }}
     </small>
   </div>
 
   <div class="form-group">
-    <label for="theme-used-country-clarity">Used Country Clarity (%)</label>
+    <label for="theme-used-country-clarity">{{ i18n.t('config', 'used_country_clarity_label') }}</label>
     <input
       class="form-control"
       id="theme-used-country-clarity"
@@ -202,12 +203,12 @@
       value="100"
     >
     <small class="form-text text-muted">
-      Rend les pays qui ont des challenges plus ou moins visibles.
+      {{ i18n.t('config', 'used_country_clarity_help') }}
     </small>
   </div>
 
   <div class="form-group">
-    <label for="theme-unused-country-clarity">Unused Country Clarity (%)</label>
+    <label for="theme-unused-country-clarity">{{ i18n.t('config', 'unused_country_clarity_label') }}</label>
     <input
       class="form-control"
       id="theme-unused-country-clarity"
@@ -219,12 +220,12 @@
       value="100"
     >
     <small class="form-text text-muted">
-      Rend les pays sans challenge plus ou moins presents dans le fond.
+      {{ i18n.t('config', 'unused_country_clarity_help') }}
     </small>
   </div>
 
   <div class="form-group">
-    <label for="theme-panel-visible-rows">Visible Challenge Rows</label>
+    <label for="theme-panel-visible-rows">{{ i18n.t('config', 'panel_visible_rows_label') }}</label>
     <input
       class="form-control"
       id="theme-panel-visible-rows"
@@ -236,12 +237,12 @@
       value="5"
     >
     <small class="form-text text-muted">
-      Controle le nombre de challenges visibles dans le panneau avant scroll.
+      {{ i18n.t('config', 'panel_visible_rows_help') }}
     </small>
   </div>
 
   <div class="form-group">
-    <label for="theme-desktop-panel-width">Desktop Panel Width (px)</label>
+    <label for="theme-desktop-panel-width">{{ i18n.t('config', 'desktop_panel_width_label') }}</label>
     <input
       class="form-control"
       id="theme-desktop-panel-width"
@@ -253,33 +254,33 @@
       value="540"
     >
     <small class="form-text text-muted">
-      Largeur maximale du panneau lateral sur desktop.
+      {{ i18n.t('config', 'desktop_panel_width_help') }}
     </small>
   </div>
 
   <div class="form-group">
-    <label for="theme-challenge-row-density">Challenge Row Density</label>
+    <label for="theme-challenge-row-density">{{ i18n.t('config', 'challenge_row_density_label') }}</label>
     <select class="form-control custom-select" id="theme-challenge-row-density" name="challenge_row_density">
-      <option value="compact">Compact</option>
-      <option value="comfortable">Comfortable</option>
-      <option value="spacious">Spacious</option>
+      <option value="compact">{{ i18n.t('config', 'density_compact') }}</option>
+      <option value="comfortable">{{ i18n.t('config', 'density_comfortable') }}</option>
+      <option value="spacious">{{ i18n.t('config', 'density_spacious') }}</option>
     </select>
     <small class="form-text text-muted">
-      Change la hauteur et l'espacement des lignes de challenge.
+      {{ i18n.t('config', 'challenge_row_density_help') }}
     </small>
   </div>
 
   <div class="form-group">
-    <label for="theme-challenge-modal-size">Challenge Modal Size</label>
+    <label for="theme-challenge-modal-size">{{ i18n.t('config', 'challenge_modal_size_label') }}</label>
     <select class="form-control custom-select" id="theme-challenge-modal-size" name="challenge_modal_size">
-      <option value="md">Medium</option>
-      <option value="lg">Large</option>
-      <option value="xl">Extra Large</option>
+      <option value="md">{{ i18n.t('config', 'modal_medium') }}</option>
+      <option value="lg">{{ i18n.t('config', 'modal_large') }}</option>
+      <option value="xl">{{ i18n.t('config', 'modal_extra_large') }}</option>
     </select>
     <small class="form-text text-muted">
-      Ajuste la taille de la fenetre modale des challenges.
+      {{ i18n.t('config', 'challenge_modal_size_help') }}
     </small>
   </div>
 
-  <button type="submit" class="btn btn-primary float-right">Build Theme Settings</button>
+  <button type="submit" class="btn btn-primary float-right">{{ i18n.t('config', 'build_button') }}</button>
 </form>

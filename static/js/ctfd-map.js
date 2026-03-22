@@ -1,6 +1,8 @@
 const config = window.CTFD_MAP_CONFIG || {};
 const root = document.querySelector(".ctfd-map-root");
 const themeSettings = window.init?.themeSettings || {};
+const themeI18n = window.CTFD_THEME_I18N?.challenges || {};
+const themeCommon = window.CTFD_THEME_I18N?.common || {};
 const MODAL_SIZE_CLASSES = ["modal-sm", "modal-lg", "modal-xl"];
 const MAP_SCOPE_OPTIONS = ["europe", "world", "americas", "africa", "asia-pacific"];
 const MAP_FIT_OPTIONS = {
@@ -37,15 +39,48 @@ const MAP_FIT_OPTIONS = {
 };
 
 const DIFFICULTY_META = [
-  { key: "intro", label: "Intro", matches: ["intro"], tone: "is-intro" },
-  { key: "very-easy", label: "Tres Facile", matches: ["tres facile", "tres-facile"], tone: "is-very-easy" },
-  { key: "easy", label: "Facile", matches: ["facile"], tone: "is-easy" },
-  { key: "medium", label: "Moyen", matches: ["moyen"], tone: "is-medium" },
-  { key: "hard", label: "Difficile", matches: ["difficile"], tone: "is-hard" },
-  { key: "very-hard", label: "Tres Difficile", matches: ["tres difficile", "tres-difficile"], tone: "is-very-hard" },
+  { key: "intro", label: themeI18n.difficulty_intro || "Intro", matches: ["intro"], tone: "is-intro" },
+  {
+    key: "very-easy",
+    label: themeI18n.difficulty_very_easy || "Very Easy",
+    matches: ["very easy", "very-easy", "tres facile", "tres-facile"],
+    tone: "is-very-easy",
+  },
+  {
+    key: "easy",
+    label: themeI18n.difficulty_easy || "Easy",
+    matches: ["easy", "facile"],
+    tone: "is-easy",
+  },
+  {
+    key: "medium",
+    label: themeI18n.difficulty_medium || "Medium",
+    matches: ["medium", "moyen"],
+    tone: "is-medium",
+  },
+  {
+    key: "hard",
+    label: themeI18n.difficulty_hard || "Hard",
+    matches: ["hard", "difficile"],
+    tone: "is-hard",
+  },
+  {
+    key: "very-hard",
+    label: themeI18n.difficulty_very_hard || "Very Hard",
+    matches: ["very hard", "very-hard", "tres difficile", "tres-difficile"],
+    tone: "is-very-hard",
+  },
 ];
 
 if (root) {
+  function t(key, fallback, replacements = {}) {
+    let value = themeI18n[key] || fallback;
+    Object.entries(replacements).forEach(([token, replacement]) => {
+      value = value.replaceAll(`{${token}}`, String(replacement));
+    });
+    return value;
+  }
+
   function normalizeNumber(value, fallback, min, max) {
     const parsed = Number.parseFloat(value);
     if (!Number.isFinite(parsed)) {
@@ -231,8 +266,10 @@ if (root) {
   boot().catch(error => {
     console.error("Unable to initialize CTFd-Theme-Map", error);
     if (elements.countryStatus) {
-      elements.countryStatus.textContent =
-        "La carte n'a pas pu etre chargee correctement. Verifiez les assets du theme.";
+      elements.countryStatus.textContent = t(
+        "map_load_error",
+        "The map could not be loaded correctly. Check the theme assets."
+      );
       elements.countryStatus.className = "ctfd-map-panel-status is-danger";
     }
   });
@@ -685,7 +722,7 @@ if (root) {
       node.dataset.countryCode = countryCode;
       node.setAttribute("role", "button");
       node.setAttribute("tabindex", "0");
-      node.setAttribute("aria-label", `Open challenges for ${country.label}`);
+      node.setAttribute("aria-label", t("open_challenges_for", "Open challenges for {country}", { country: country.label }));
       node.addEventListener("click", event => {
         event.stopPropagation();
         toggleCountry(countryCode);
@@ -714,8 +751,10 @@ if (root) {
       console.warn("Unable to load challenge list", error);
       state.challenges = [];
       state.challengesById = new Map();
-      state.loadError =
-        "Les challenges ne sont pas accessibles depuis cette page pour le moment. Connectez-vous ou verifiez la visibilite CTFd.";
+      state.loadError = t(
+        "challenge_access_error",
+        "Challenges are not accessible from this page right now. Sign in or check CTFd visibility."
+      );
     }
 
     updateMapAvailability();
@@ -824,7 +863,7 @@ if (root) {
         ? state.loadError
         : solvedEntries > 0
           ? `${challengeLabel} - ${formatSolvedCount(solvedEntries)}`
-          : `${challengeLabel} disponibles`;
+          : `${challengeLabel} ${t(entries.length > 1 ? "available_plural" : "available_single", "available")}`;
       elements.countryStatus.className = state.loadError
         ? "ctfd-map-panel-status is-warning"
         : "ctfd-map-panel-status";
@@ -858,8 +897,8 @@ if (root) {
     difficultyOptions.sort((left, right) => left.label.localeCompare(right.label));
     categoryOptions.sort((left, right) => left.label.localeCompare(right.label));
 
-    populateSelect(elements.filterDifficulty, difficultyOptions, "Toutes");
-    populateSelect(elements.filterCategory, categoryOptions, "Toutes");
+    populateSelect(elements.filterDifficulty, difficultyOptions, themeCommon.all || "All");
+    populateSelect(elements.filterCategory, categoryOptions, themeCommon.all || "All");
 
     if (!difficultyOptions.some(option => option.value === state.filters.difficulty)) {
       state.filters.difficulty = "";
@@ -933,8 +972,8 @@ if (root) {
       elements.challengeList.innerHTML = [
         '<div class="ctfd-map-empty">',
         totalCount > 0
-          ? "Aucun challenge ne correspond aux filtres selectionnes."
-          : "Aucun challenge disponible dans cette zone.",
+          ? t("no_challenges_filtered", "No challenges match the selected filters.")
+          : t("no_challenges_in_area", "No challenge available in this area."),
         "</div>",
       ].join("");
       return;
@@ -944,8 +983,8 @@ if (root) {
       const row = document.createElement("button");
       const solved = Boolean(entry.challenge?.solved_by_me);
       const missing = Boolean(entry.missing);
-      const heading = entry.challenge?.name || `Challenge #${entry.id}`;
-      const categoryLabel = getCategoryLabel(entry) || "Sans categorie";
+      const heading = entry.challenge?.name || t("challenge_fallback", "Challenge #{id}", { id: entry.id });
+      const categoryLabel = getCategoryLabel(entry) || t("uncategorized", "Uncategorized");
       const pointsLabel = entry.challenge?.value !== undefined ? `${entry.challenge.value} pts` : "--";
       const difficulty = getDifficultyMeta(entry);
       const visibleTags = getVisibleTags(entry);
@@ -954,7 +993,7 @@ if (root) {
       row.type = "button";
       row.className = `ctfd-map-challenge-row${solved ? " is-solved" : ""}${missing ? " is-missing" : ""}`;
       row.disabled = missing;
-      row.setAttribute("aria-label", `${missing ? "Indisponible" : "Ouvrir"} ${heading}`);
+      row.setAttribute("aria-label", `${missing ? t("unavailable", "Unavailable") : t("open", "Open")} ${heading}`);
       row.innerHTML = `
         <span class="ctfd-map-challenge-index">${ordinal}</span>
         <div class="ctfd-map-challenge-main">
@@ -968,8 +1007,8 @@ if (root) {
           <span class="ctfd-map-challenge-points">${escapeHtml(pointsLabel)}</span>
           <span
             class="ctfd-map-challenge-difficulty ${difficulty ? difficulty.tone : "is-unknown"}"
-            title="${escapeHtml(difficulty ? difficulty.label : "Sans difficulte")}" 
-            aria-label="${escapeHtml(difficulty ? difficulty.label : "Sans difficulte")}" 
+            title="${escapeHtml(difficulty ? difficulty.label : t("no_difficulty", "No difficulty"))}" 
+            aria-label="${escapeHtml(difficulty ? difficulty.label : t("no_difficulty", "No difficulty"))}" 
           ></span>
         </div>
       `;
@@ -1219,11 +1258,19 @@ if (root) {
   }
 
   function formatChallengeCount(count) {
-    return `${count} challenge${count > 1 ? "s" : ""}`;
+    return t(
+      count > 1 ? "challenge_plural" : "challenge_single",
+      count > 1 ? "{count} challenges" : "{count} challenge",
+      { count }
+    );
   }
 
   function formatSolvedCount(count) {
-    return `${count} resolu${count > 1 ? "s" : ""}`;
+    return t(
+      count > 1 ? "solved_plural" : "solved_single",
+      "{count} solved",
+      { count }
+    );
   }
 
   function normalizeLabel(value) {

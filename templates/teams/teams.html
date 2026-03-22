@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "components/theme_i18n.html" as i18n with context %}
 
 {% block stylesheets %}
   {{ super() }}
@@ -19,41 +20,41 @@
 
       <header class="ctfd-users-v2__head">
         <div class="ctfd-users-v2__head-copy">
-          <p class="ctfd-users-v2__eyebrow">Directory</p>
+          <p class="ctfd-users-v2__eyebrow">{{ i18n.t('teams', 'directory') }}</p>
           <div class="ctfd-users-v2__title-row">
             <h1>{% trans %}Teams{% endtrans %}</h1>
             <div class="ctfd-users-v2__head-stats">
               <span class="ctfd-users-v2__stat-chip">
-                <span class="ctfd-users-v2__stat-label">Total</span>
+                <span class="ctfd-users-v2__stat-label">{{ i18n.t('common', 'total') }}</span>
                 <strong>{{ teams.total }}</strong>
               </span>
               <span class="ctfd-users-v2__stat-chip">
-                <span class="ctfd-users-v2__stat-label">Visible</span>
+                <span class="ctfd-users-v2__stat-label">{{ i18n.t('common', 'visible') }}</span>
                 <strong data-visible-count>{{ teams.items | length }}</strong>
               </span>
             </div>
           </div>
           <p class="ctfd-users-v2__summary">
-            Public teams only. Search the current page by team name.
+            {{ i18n.t('teams', 'summary') }}
           </p>
         </div>
 
         <section class="ctfd-users-v2__toolbar" data-team-directory-toolbar>
           <div class="ctfd-users-v2__toolbar-controls ctfd-users-v2__toolbar-controls--single">
             <label class="ctfd-users-v2__searchbox" for="ctfd-team-search-input">
-              <span>Search</span>
+              <span>{{ i18n.t('common', 'search') }}</span>
               <input
                 id="ctfd-team-search-input"
                 type="search"
                 autocomplete="off"
-                placeholder="Search teams"
+                placeholder="{{ i18n.t('teams', 'search_teams') }}"
                 value="{{ q or '' }}"
                 data-team-filter-input
               >
             </label>
 
             <button type="button" class="ctfd-users-v2__search-reset" data-team-filter-reset>
-              Reset
+              {{ i18n.t('common', 'reset') }}
             </button>
           </div>
         </section>
@@ -70,7 +71,7 @@
               <a
                 class="ctfd-user-card__link"
                 href="{{ url_for('teams.public', team_id=team.id) }}"
-                aria-label="Open profile for {{ team.name }}"
+                aria-label="{{ i18n.t('teams', 'open_profile_for') | replace('{name}', team.name | string) }}"
               ></a>
             {% endif %}
 
@@ -85,28 +86,28 @@
 
                   <div class="ctfd-user-card__facts">
                     <span class="ctfd-user-card__fact ctfd-user-card__fact--accent">
-                      <span class="ctfd-user-card__fact-label">Members</span>
+                      <span class="ctfd-user-card__fact-label">{{ i18n.t('common', 'members') }}</span>
                       <strong>{{ team.members | length }}</strong>
                     </span>
 
                     {% if scores_visible() %}
                       <span class="ctfd-user-card__fact ctfd-user-card__fact--score">
-                        <span class="ctfd-user-card__fact-label">Points</span>
+                        <span class="ctfd-user-card__fact-label">{{ i18n.t('common', 'points') }}</span>
                         <strong>{{ team.score or 0 }}</strong>
                       </span>
                     {% endif %}
 
                     {% if team.bracket_id %}
                       <span class="ctfd-user-card__fact">
-                        <span class="ctfd-user-card__fact-label">Bracket</span>
+                        <span class="ctfd-user-card__fact-label">{{ i18n.t('common', 'bracket') }}</span>
                         <strong>{{ team.bracket.name }}</strong>
                       </span>
                     {% endif %}
 
                     {% if team.oauth_id %}
                       <span class="ctfd-user-card__fact ctfd-user-card__fact--muted">
-                        <span class="ctfd-user-card__fact-label">Status</span>
-                        <strong>Official</strong>
+                        <span class="ctfd-user-card__fact-label">{{ i18n.t('common', 'status') }}</span>
+                        <strong>{{ i18n.t('common', 'official') }}</strong>
                       </span>
                     {% endif %}
                   </div>
@@ -118,26 +119,26 @@
       </section>
 
       <div class="ctfd-users-v2__empty" data-team-empty {% if teams.items %}hidden{% endif %}>
-        <h2>No team visible</h2>
-        <p>Try another search value on this page.</p>
+        <h2>{{ i18n.t('teams', 'no_team_visible') }}</h2>
+        <p>{{ i18n.t('teams', 'try_other_search') }}</p>
       </div>
 
       {% if teams.pages > 1 %}
-        <nav class="ctfd-users-v2__pagination" aria-label="Team list pagination">
+        <nav class="ctfd-users-v2__pagination" aria-label="{{ i18n.t('teams', 'directory') }}">
           <span>{% trans %}Page{% endtrans %}</span>
 
           {% if teams.page != 1 %}
-            <a href="{{ prev_page }}" aria-label="Previous page">&lt;&lt;&lt;</a>
+            <a href="{{ prev_page }}" aria-label="{{ i18n.t('common', 'previous_page') }}">&lt;&lt;&lt;</a>
           {% endif %}
 
-          <select class="page-select" aria-label="Page selector">
+          <select class="page-select" aria-label="{{ i18n.t('common', 'page_selector') }}">
             {% for page in range(1, teams.pages + 1) %}
               <option {% if teams.page == page %}selected{% endif %}>{{ page }}</option>
             {% endfor %}
           </select>
 
           {% if teams.next_num %}
-            <a href="{{ next_page }}" aria-label="Next page">&gt;&gt;&gt;</a>
+            <a href="{{ next_page }}" aria-label="{{ i18n.t('common', 'next_page') }}">&gt;&gt;&gt;</a>
           {% endif %}
         </nav>
       {% endif %}
@@ -147,5 +148,6 @@
 
 {% block scripts %}
   {{ Assets.js("assets/js/teams/list.js") }}
-  <script defer src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/ctfd-teams.js') }}?v=20260315b"></script>
+  {{ i18n.script() }}
+  <script defer src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/ctfd-teams.js') }}?v=20260322a"></script>
 {% endblock %}

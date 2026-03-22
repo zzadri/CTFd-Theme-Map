@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "components/theme_i18n.html" as i18n with context %}
 
 {% block stylesheets %}
   {{ super() }}
@@ -19,50 +20,50 @@
 
       <header class="ctfd-users-v2__head">
         <div class="ctfd-users-v2__head-copy">
-          <p class="ctfd-users-v2__eyebrow">Directory</p>
+          <p class="ctfd-users-v2__eyebrow">{{ i18n.t('users', 'directory') }}</p>
           <div class="ctfd-users-v2__title-row">
             <h1>{% trans %}Users{% endtrans %}</h1>
             <div class="ctfd-users-v2__head-stats">
               <span class="ctfd-users-v2__stat-chip">
-                <span class="ctfd-users-v2__stat-label">Total</span>
+                <span class="ctfd-users-v2__stat-label">{{ i18n.t('common', 'total') }}</span>
                 <strong>{{ users.total }}</strong>
               </span>
               <span class="ctfd-users-v2__stat-chip">
-                <span class="ctfd-users-v2__stat-label">Visible</span>
+                <span class="ctfd-users-v2__stat-label">{{ i18n.t('common', 'visible') }}</span>
                 <strong data-visible-count>{{ users.items | length }}</strong>
               </span>
             </div>
           </div>
           <p class="ctfd-users-v2__summary">
-            Public profiles only. Search the current page by name or team.
+            {{ i18n.t('users', 'summary') }}
           </p>
         </div>
 
         <section class="ctfd-users-v2__toolbar" data-user-directory-toolbar>
           <div class="ctfd-users-v2__toolbar-controls">
-            <div class="ctfd-users-v2__search-mode" role="tablist" aria-label="Search mode selector">
+            <div class="ctfd-users-v2__search-mode" role="tablist" aria-label="{{ i18n.t('users', 'search_mode_selector') }}">
               <button type="button" class="ctfd-users-v2__search-mode-btn is-active" data-filter-field="name" aria-pressed="true">
-                Name
+                {{ i18n.t('common', 'name') }}
               </button>
               <button type="button" class="ctfd-users-v2__search-mode-btn" data-filter-field="team" aria-pressed="false">
-                Team
+                {{ i18n.t('common', 'team') }}
               </button>
             </div>
 
             <label class="ctfd-users-v2__searchbox" for="ctfd-user-search-input">
-              <span>Search</span>
+              <span>{{ i18n.t('common', 'search') }}</span>
               <input
                 id="ctfd-user-search-input"
                 type="search"
                 autocomplete="off"
-                placeholder="Search users"
+                placeholder="{{ i18n.t('users', 'search_users') }}"
                 value="{{ q or '' }}"
                 data-user-filter-input
               >
             </label>
 
             <button type="button" class="ctfd-users-v2__search-reset" data-user-filter-reset>
-              Reset
+              {{ i18n.t('common', 'reset') }}
             </button>
           </div>
         </section>
@@ -71,9 +72,9 @@
       <section class="ctfd-users-v2__list" aria-live="polite" data-user-directory>
         {% for user in users.items %}
           {% set team_name = user.team.name if user.team else '' %}
-          {% set country_name = lookup_country_code(user.country) if user.country else 'unknown' %}
-          {% set website_value = user.website | truncate(40) if user.website and (user.website.startswith('http://') or user.website.startswith('https://')) else 'none' %}
-          {% set affiliation_value = user.affiliation | truncate(40) if user.affiliation else 'none' %}
+          {% set country_name = lookup_country_code(user.country) if user.country else i18n.t('common', 'unknown') %}
+          {% set website_value = user.website | truncate(40) if user.website and (user.website.startswith('http://') or user.website.startswith('https://')) else i18n.t('common', 'none') %}
+          {% set affiliation_value = user.affiliation | truncate(40) if user.affiliation else i18n.t('common', 'none') %}
           <article
             class="ctfd-user-card"
             data-user-card
@@ -84,7 +85,7 @@
               <a
                 class="ctfd-user-card__link"
                 href="{{ url_for('users.public', user_id=user.id) }}"
-                aria-label="Open profile for {{ user.name }}"
+                aria-label="{{ i18n.t('users', 'open_profile_for') | replace('{name}', user.name | string) }}"
               ></a>
             {% endif %}
 
@@ -100,29 +101,29 @@
                   <div class="ctfd-user-card__facts">
                     {% if team_name %}
                       <span class="ctfd-user-card__fact ctfd-user-card__fact--accent">
-                        <span class="ctfd-user-card__fact-label">Team</span>
+                        <span class="ctfd-user-card__fact-label">{{ i18n.t('common', 'team') }}</span>
                         <strong>{{ team_name | truncate(32) }}</strong>
                       </span>
                     {% endif %}
 
                     {% if scores_visible() %}
                       <span class="ctfd-user-card__fact ctfd-user-card__fact--score">
-                        <span class="ctfd-user-card__fact-label">Points</span>
+                        <span class="ctfd-user-card__fact-label">{{ i18n.t('common', 'points') }}</span>
                         <strong>{{ user.score or 0 }}</strong>
                       </span>
                     {% endif %}
 
                     {% if user.bracket_id %}
                       <span class="ctfd-user-card__fact">
-                        <span class="ctfd-user-card__fact-label">Bracket</span>
+                        <span class="ctfd-user-card__fact-label">{{ i18n.t('common', 'bracket') }}</span>
                         <strong>{{ user.bracket.name }}</strong>
                       </span>
                     {% endif %}
 
                     {% if user.oauth_id %}
                       <span class="ctfd-user-card__fact ctfd-user-card__fact--muted">
-                        <span class="ctfd-user-card__fact-label">Status</span>
-                        <strong>Official</strong>
+                        <span class="ctfd-user-card__fact-label">{{ i18n.t('common', 'status') }}</span>
+                        <strong>{{ i18n.t('common', 'official') }}</strong>
                       </span>
                     {% endif %}
                   </div>
@@ -131,25 +132,25 @@
 
               <div class="ctfd-user-card__meta">
                 <span class="ctfd-user-card__meta-item">
-                  <span class="ctfd-user-card__meta-label">Country</span>
+                  <span class="ctfd-user-card__meta-label">{{ i18n.t('common', 'country') }}</span>
                   <span class="ctfd-user-card__meta-value">
                     {% if user.country %}
                       <i class="flag-{{ user.country.lower() }}" aria-hidden="true"></i>
                       {{ country_name }}
                     {% else %}
                       <span class="ctfd-user-card__unknown-flag" aria-hidden="true">?</span>
-                      unknown
+                      {{ i18n.t('common', 'unknown') }}
                     {% endif %}
                   </span>
                 </span>
 
                 <span class="ctfd-user-card__meta-item">
-                  <span class="ctfd-user-card__meta-label">Affiliation</span>
+                  <span class="ctfd-user-card__meta-label">{{ i18n.t('common', 'affiliation') }}</span>
                   <span class="ctfd-user-card__meta-value">{{ affiliation_value }}</span>
                 </span>
 
                 <span class="ctfd-user-card__meta-item ctfd-user-card__meta-item--wide">
-                  <span class="ctfd-user-card__meta-label">Website</span>
+                  <span class="ctfd-user-card__meta-label">{{ i18n.t('common', 'website') }}</span>
                   <span class="ctfd-user-card__meta-value">{{ website_value }}</span>
                 </span>
               </div>
@@ -159,26 +160,26 @@
       </section>
 
       <div class="ctfd-users-v2__empty" data-user-empty {% if users.items %}hidden{% endif %}>
-        <h2>Aucun utilisateur visible</h2>
-        <p>Essayez un autre nom ou une autre equipe.</p>
+        <h2>{{ i18n.t('users', 'no_users_visible') }}</h2>
+        <p>{{ i18n.t('users', 'try_other_name_team') }}</p>
       </div>
 
       {% if users.pages > 1 %}
-        <nav class="ctfd-users-v2__pagination" aria-label="User list pagination">
+        <nav class="ctfd-users-v2__pagination" aria-label="{{ i18n.t('users', 'directory') }}">
           <span>{% trans %}Page{% endtrans %}</span>
 
           {% if users.page != 1 %}
-            <a href="{{ prev_page }}" aria-label="Previous page">&lt;&lt;&lt;</a>
+            <a href="{{ prev_page }}" aria-label="{{ i18n.t('common', 'previous_page') }}">&lt;&lt;&lt;</a>
           {% endif %}
 
-          <select class="page-select" aria-label="Page selector">
+          <select class="page-select" aria-label="{{ i18n.t('common', 'page_selector') }}">
             {% for page in range(1, users.pages + 1) %}
               <option {% if users.page == page %}selected{% endif %}>{{ page }}</option>
             {% endfor %}
           </select>
 
           {% if users.next_num %}
-            <a href="{{ next_page }}" aria-label="Next page">&gt;&gt;&gt;</a>
+            <a href="{{ next_page }}" aria-label="{{ i18n.t('common', 'next_page') }}">&gt;&gt;&gt;</a>
           {% endif %}
         </nav>
       {% endif %}
@@ -188,5 +189,6 @@
 
 {% block scripts %}
   {{ Assets.js("assets/js/users/list.js") }}
-  <script defer src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/ctfd-users.js') }}?v=20260315d"></script>
+  {{ i18n.script() }}
+  <script defer src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/ctfd-users.js') }}?v=20260322a"></script>
 {% endblock %}

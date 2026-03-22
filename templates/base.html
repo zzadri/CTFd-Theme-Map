@@ -1,3 +1,4 @@
+{% import "components/theme_i18n.html" as i18n with context %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,10 +33,11 @@
           'themeSettings': {{ Configs.theme_settings | tojson }},
           'eventSounds': [
             "/themes/core/static/sounds/notification.webm",
-            "/themes/core/static/sounds/notification.mp3",
-          ],
+            "/themes/core/static/sounds/notification.mp3"
+          ]
       }
   </script>
+  {{ i18n.script() }}
 
   {{ Configs.theme_header }}
 </head>

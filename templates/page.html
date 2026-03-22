@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "components/theme_i18n.html" as i18n with context %}
 
 {% block stylesheets %}
   {{ super() }}
@@ -22,77 +23,77 @@
     <section class="ctfd-page ctfd-page--rules">
       <div class="ctfd-page__shell ctfd-rules">
         <header class="ctfd-rules__hero">
-          <p class="ctfd-page__eyebrow">Mission Brief</p>
-          <h1>{{ title or 'Rules' }}</h1>
+          <p class="ctfd-page__eyebrow">{{ i18n.t('page_text', 'mission_brief') }}</p>
+          <h1>{{ title or i18n.t('page_text', 'rules_title') }}</h1>
           <p class="ctfd-page__summary">
-            Keep the event fair, keep the infrastructure safe, and stay within the expected scope. Edit the CTFd page with route <code>rules</code> if you want to replace or extend these notes.
+            {{ i18n.t('page_text', 'rules_summary') }}
           </p>
         </header>
 
         <div class="ctfd-rules__grid">
           <section class="ctfd-rules-card">
-            <h2>Fair Play</h2>
+            <h2>{{ i18n.t('page_text', 'fair_play') }}</h2>
             <ul>
-              <li>Play with your own account only.</li>
-              <li>Do not share flags, solutions, or private challenge material during the event.</li>
-              <li>Respect other players, staff, and event infrastructure.</li>
+              <li>{{ i18n.t('page_text', 'fair_play_1') }}</li>
+              <li>{{ i18n.t('page_text', 'fair_play_2') }}</li>
+              <li>{{ i18n.t('page_text', 'fair_play_3') }}</li>
             </ul>
           </section>
 
           <section class="ctfd-rules-card">
-            <h2>Allowed Scope</h2>
+            <h2>{{ i18n.t('page_text', 'allowed_scope') }}</h2>
             <ul>
-              <li>Interact only with infrastructure and services explicitly provided for the CTF.</li>
-              <li>Attack only the targets that are part of the event.</li>
-              <li>Report unintended exposures or platform issues to the organizers.</li>
+              <li>{{ i18n.t('page_text', 'allowed_scope_1') }}</li>
+              <li>{{ i18n.t('page_text', 'allowed_scope_2') }}</li>
+              <li>{{ i18n.t('page_text', 'allowed_scope_3') }}</li>
             </ul>
           </section>
 
           <section class="ctfd-rules-card">
-            <h2>Forbidden Actions</h2>
+            <h2>{{ i18n.t('page_text', 'forbidden_actions') }}</h2>
             <ul>
-              <li>No denial of service, brute-force flooding, or disruption of the platform.</li>
-              <li>No attacks against accounts, teams, or machines outside the CTF scope.</li>
-              <li>No sabotage of challenge availability for other participants.</li>
+              <li>{{ i18n.t('page_text', 'forbidden_actions_1') }}</li>
+              <li>{{ i18n.t('page_text', 'forbidden_actions_2') }}</li>
+              <li>{{ i18n.t('page_text', 'forbidden_actions_3') }}</li>
             </ul>
           </section>
 
           <section class="ctfd-rules-card">
-            <h2>Flags And Accounts</h2>
+            <h2>{{ i18n.t('page_text', 'flags_and_accounts') }}</h2>
             <ul>
-              <li>Submit flags in the exact expected format.</li>
-              <li>Do not attempt to bypass authentication or steal session data from other players.</li>
-              <li>One team, one identity, one honest scoreboard position.</li>
+              <li>{{ i18n.t('page_text', 'flags_and_accounts_1') }}</li>
+              <li>{{ i18n.t('page_text', 'flags_and_accounts_2') }}</li>
+              <li>{{ i18n.t('page_text', 'flags_and_accounts_3') }}</li>
             </ul>
           </section>
 
           <section class="ctfd-rules-card">
-            <h2>Communication</h2>
+            <h2>{{ i18n.t('page_text', 'communication') }}</h2>
             <ul>
-              <li>Use the official support channel for outages, broken challenges, or unclear statements.</li>
-              <li>Give organizers enough detail to reproduce a technical issue quickly.</li>
-              <li>Avoid posting spoilers in public channels during the event.</li>
+              <li>{{ i18n.t('page_text', 'communication_1') }}</li>
+              <li>{{ i18n.t('page_text', 'communication_2') }}</li>
+              <li>{{ i18n.t('page_text', 'communication_3') }}</li>
             </ul>
           </section>
 
           <section class="ctfd-rules-card">
-            <h2>Enforcement</h2>
+            <h2>{{ i18n.t('page_text', 'enforcement') }}</h2>
             <ul>
-              <li>Organizers may remove solves, suspend teams, or disqualify accounts for abusive behavior.</li>
-              <li>If an action creates risk for the platform, the organizers may intervene immediately.</li>
-              <li>Final interpretation of the rules belongs to the event staff.</li>
+              <li>{{ i18n.t('page_text', 'enforcement_1') }}</li>
+              <li>{{ i18n.t('page_text', 'enforcement_2') }}</li>
+              <li>{{ i18n.t('page_text', 'enforcement_3') }}</li>
             </ul>
           </section>
 
           <section class="ctfd-rules-card ctfd-rules-card--wide">
-            <h2>Organizer Addendum</h2>
+            <h2>{{ i18n.t('page_text', 'organizer_addendum') }}</h2>
             {% if has_custom_rules_content %}
               <div class="ctfd-page__content">
                 {{ content | safe }}
               </div>
             {% else %}
               <p class="ctfd-rules-card__note">
-                No custom content has been added yet. Create or edit the CTFd page with route <code>rules</code> in Admin &gt; Pages to customize this section.
+                {{ i18n.t('page_text', 'no_custom_rules') }}
               </p>
             {% endif %}
           </section>
@@ -105,7 +106,7 @@
         <article class="ctfd-page__card">
           {% if title and not is_index_page %}
             <header class="ctfd-page__header">
-              <p class="ctfd-page__eyebrow">Page</p>
+              <p class="ctfd-page__eyebrow">{{ i18n.t('common', 'page') }}</p>
               <h1>{{ title }}</h1>
             </header>
           {% endif %}

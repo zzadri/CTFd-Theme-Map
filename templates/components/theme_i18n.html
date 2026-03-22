@@ -1,0 +1,28 @@
+{% set theme_lang = (((get_locale() or 'en') | string).split('_')[0] | lower) %}
+{% set locale_templates = {
+  'en': 'components/i18n/en.html',
+  'fr': 'components/i18n/fr.html',
+  'de': 'components/i18n/de.html',
+  'es': 'components/i18n/es.html',
+  'it': 'components/i18n/it.html',
+  'pl': 'components/i18n/pl.html',
+} %}
+{% set locale_template = locale_templates.get(theme_lang, locale_templates['en']) %}
+{% import locale_template as locale_pack with context %}
+{% set theme_catalog = locale_pack.catalog %}
+
+{% macro catalog_json() -%}
+  {{- theme_catalog | tojson -}}
+{%- endmacro %}
+
+{% macro t(section, key, fallback='') -%}
+  {{- theme_catalog.get(section, {}).get(key, fallback) -}}
+{%- endmacro %}
+
+{% macro script() -%}
+  <script>
+    window.init = window.init || {};
+    window.init.locale = {{ get_locale() | tojson }};
+    window.CTFD_THEME_I18N = {{ catalog_json() }};
+  </script>
+{%- endmacro %}

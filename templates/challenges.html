@@ -1,13 +1,14 @@
 {% extends "base.html" %}
+{% import "components/theme_i18n.html" as i18n with context %}
 
 {% set raw_theme_settings = Configs.theme_settings or {} %}
 {% set theme_settings = raw_theme_settings if raw_theme_settings is mapping else {} %}
 {% set map_scopes = {
-  'europe': {'asset': 'img/europe-map.svg', 'label': 'Europe'},
-  'world': {'asset': 'img/world-map.svg', 'label': 'World'},
-  'americas': {'asset': 'img/world-map.svg', 'label': 'Americas'},
-  'africa': {'asset': 'img/world-map.svg', 'label': 'Africa'},
-  'asia-pacific': {'asset': 'img/world-map.svg', 'label': 'Asia Pacific'}
+  'europe': {'asset': 'img/europe-map.svg', 'label': i18n.t('challenges', 'scope_europe')},
+  'world': {'asset': 'img/world-map.svg', 'label': i18n.t('challenges', 'scope_world')},
+  'americas': {'asset': 'img/world-map.svg', 'label': i18n.t('challenges', 'scope_americas')},
+  'africa': {'asset': 'img/world-map.svg', 'label': i18n.t('challenges', 'scope_africa')},
+  'asia-pacific': {'asset': 'img/world-map.svg', 'label': i18n.t('challenges', 'scope_asia_pacific')}
 } %}
 {% set map_scope = theme_settings.get('map_scope', 'europe') %}
 {% if map_scope not in map_scopes %}
@@ -38,37 +39,37 @@
           id="ctfd-map-viewport"
           data-map-src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path=map_asset) }}?v=20260322a"
         >
-          <div class="ctfd-map-loading">Loading {{ map_label }} map...</div>
+          <div class="ctfd-map-loading">{{ i18n.t('challenges', 'loading_map') | replace('{map}', map_label) }}</div>
         </div>
       </div>
 
       <aside class="ctfd-map-panel" id="ctfd-map-panel" aria-hidden="true">
         <div class="ctfd-map-panel-body">
           <section class="ctfd-map-panel-overview">
-            <p class="ctfd-map-panel-label" id="ctfd-country-code">Zone</p>
+            <p class="ctfd-map-panel-label" id="ctfd-country-code">{{ i18n.t('challenges', 'region_label') }}</p>
             <div class="ctfd-map-panel-heading-row">
-              <h2 class="ctfd-map-panel-title" id="ctfd-country-name">Selection</h2>
+              <h2 class="ctfd-map-panel-title" id="ctfd-country-name">{{ i18n.t('challenges', 'selection') }}</h2>
               <div class="ctfd-map-panel-status" id="ctfd-country-status"></div>
             </div>
             <p class="ctfd-map-panel-copy" id="ctfd-country-summary"></p>
 
             <div class="ctfd-map-filters">
               <div class="ctfd-map-filter">
-                <label class="ctfd-map-filter-label" for="ctfd-filter-difficulty">Difficulte</label>
+                <label class="ctfd-map-filter-label" for="ctfd-filter-difficulty">{{ i18n.t('common', 'difficulty') }}</label>
                 <select class="ctfd-map-filter-input" id="ctfd-filter-difficulty">
-                  <option value="">Toutes</option>
+                  <option value="">{{ i18n.t('common', 'all') }}</option>
                 </select>
               </div>
 
               <div class="ctfd-map-filter">
-                <label class="ctfd-map-filter-label" for="ctfd-filter-category">Categorie</label>
+                <label class="ctfd-map-filter-label" for="ctfd-filter-category">{{ i18n.t('common', 'category') }}</label>
                 <select class="ctfd-map-filter-input" id="ctfd-filter-category">
-                  <option value="">Toutes</option>
+                  <option value="">{{ i18n.t('common', 'all') }}</option>
                 </select>
               </div>
 
               <button type="button" class="ctfd-map-filter-reset" id="ctfd-filter-reset" hidden>
-                Reinitialiser
+                {{ i18n.t('challenges', 'reset_filters') }}
               </button>
             </div>
           </section>
@@ -76,13 +77,13 @@
           <section class="ctfd-map-panel-list-shell">
             <div class="ctfd-map-panel-list-head">
               <div>
-                <p class="ctfd-map-panel-list-label">Challenges</p>
+                <p class="ctfd-map-panel-list-label">{{ i18n.t('challenges', 'challenges_label') }}</p>
                 <p class="ctfd-map-panel-list-subtitle" id="ctfd-country-list-meta">
-                  Cliquez sur un challenge pour ouvrir sa fiche.
+                  {{ i18n.t('challenges', 'challenge_subtitle') }}
                 </p>
               </div>
               <button type="button" class="ctfd-map-panel-close" id="ctfd-map-panel-close">
-                Fermer
+                {{ i18n.t('common', 'close') }}
               </button>
             </div>
             <div class="ctfd-map-challenges" id="ctfd-country-challenges"></div>
@@ -112,6 +113,7 @@
 
 {% block scripts %}
   {{ Assets.js("assets/js/challenges.js") }}
+  {{ i18n.script() }}
   <script>
     window.CTFD_MAP_CONFIG = window.CTFD_MAP_CONFIG || {};
     window.CTFD_MAP_CONFIG.mapAsset = "{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path=map_asset) }}?v=20260322a";
@@ -136,5 +138,5 @@
     window.CTFD_MAP_CONFIG.isAdmin = {{ is_admin() | tojson }};
   </script>
   <script src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/ctfd-map-data.js') }}?v=20260322c"></script>
-  <script type="module" src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/ctfd-map.js') }}?v=20260322x"></script>
+  <script type="module" src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/ctfd-map.js') }}?v=20260322y"></script>
 {% endblock %}

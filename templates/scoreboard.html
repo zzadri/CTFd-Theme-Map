@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "components/theme_i18n.html" as i18n with context %}
 
 {% block stylesheets %}
   {{ super() }}
@@ -13,28 +14,33 @@
 {% endblock %}
 
 {% block content %}
-  <section class="ctfd-scoreboard" data-ctfd-scoreboard data-mode-label="{{ get_mode_as_word(capitalize=True) }}" data-all-label="{% trans %}All{% endtrans %}">
+  <section
+    class="ctfd-scoreboard"
+    data-ctfd-scoreboard
+    data-mode-label="{{ get_mode_as_word(capitalize=True) }}"
+    data-all-label="{{ i18n.t('common', 'all') }}"
+  >
     <div class="ctfd-scoreboard__shell">
       {% include "components/errors.html" %}
 
       <header class="ctfd-scoreboard__hero">
         <div class="ctfd-scoreboard__hero-head">
           <div>
-            <p class="ctfd-scoreboard__eyebrow">Live Ranking</p>
+            <p class="ctfd-scoreboard__eyebrow">{{ i18n.t('scoreboard', 'live_ranking') }}</p>
             <h1>{% trans %}Scoreboard{% endtrans %}</h1>
             <p>
-              Follow live progression on the graph, then inspect the current ranking below.
+              {{ i18n.t('scoreboard', 'hero_summary') }}
             </p>
           </div>
 
           <div class="ctfd-scoreboard__statline">
             <span class="ctfd-scoreboard__chip">
-              <span class="ctfd-scoreboard__label">Mode</span>
+              <span class="ctfd-scoreboard__label">{{ i18n.t('common', 'mode') }}</span>
               <strong>{{ get_mode_as_word(capitalize=True) }}</strong>
             </span>
             <span class="ctfd-scoreboard__chip">
-              <span class="ctfd-scoreboard__label">Window</span>
-              <strong>Top 10</strong>
+              <span class="ctfd-scoreboard__label">{{ i18n.t('common', 'window') }}</span>
+              <strong>{{ i18n.t('scoreboard', 'top_window') }}</strong>
             </span>
           </div>
         </div>
@@ -43,25 +49,25 @@
       <section class="ctfd-scoreboard__graph-panel">
         <div class="ctfd-scoreboard__panel-head">
           <div>
-            <p class="ctfd-scoreboard__subline">Progression</p>
-            <h2>Score evolution</h2>
+            <p class="ctfd-scoreboard__subline">{{ i18n.t('scoreboard', 'progression') }}</p>
+            <h2>{{ i18n.t('scoreboard', 'score_evolution') }}</h2>
           </div>
         </div>
 
         <div class="ctfd-scoreboard__graph-wrap">
           <div id="ctfd-scoreboard-graph" class="ctfd-scoreboard__graph" aria-live="polite"></div>
           <div id="ctfd-scoreboard-graph-empty" class="ctfd-scoreboard__graph-empty" hidden>
-            No graph data yet.
+            {{ i18n.t('scoreboard', 'no_graph_data') }}
           </div>
-          <div id="ctfd-scoreboard-legend" class="ctfd-scoreboard__legend" aria-label="Graph legend"></div>
+          <div id="ctfd-scoreboard-legend" class="ctfd-scoreboard__legend" aria-label="{{ i18n.t('scoreboard', 'graph_legend') }}"></div>
         </div>
       </section>
 
       <section class="ctfd-scoreboard__board-panel">
         <div class="ctfd-scoreboard__panel-head">
           <div>
-            <p class="ctfd-scoreboard__subline">Standings</p>
-            <h2>Current ranking</h2>
+            <p class="ctfd-scoreboard__subline">{{ i18n.t('scoreboard', 'standings') }}</p>
+            <h2>{{ i18n.t('scoreboard', 'current_ranking') }}</h2>
           </div>
         </div>
 
@@ -82,8 +88,8 @@
 
         <div id="ctfd-scoreboard-empty" class="ctfd-scoreboard__empty" hidden>
           <div>
-            <h3>{% trans %}Scoreboard is empty{% endtrans %}</h3>
-            <p>No visible ranking data yet.</p>
+            <h3>{{ i18n.t('scoreboard', 'current_ranking') }}</h3>
+            <p>{{ i18n.t('scoreboard', 'empty_ranking') }}</p>
           </div>
         </div>
       </section>
@@ -93,8 +99,9 @@
 
 {% block scripts %}
   {{ super() }}
+  {{ i18n.script() }}
   <script
     defer
-    src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/ctfd-scoreboard.js') }}?v=20260315a"
+    src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/ctfd-scoreboard.js') }}?v=20260322a"
   ></script>
 {% endblock %}

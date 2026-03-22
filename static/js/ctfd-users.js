@@ -4,6 +4,8 @@
     return;
   }
 
+  const themeI18n = window.CTFD_THEME_I18N?.users || {};
+
   const cards = Array.from(root.querySelectorAll("[data-user-card]"));
   const input = document.querySelector("[data-user-filter-input]");
   const reset = document.querySelector("[data-user-filter-reset]");
@@ -16,8 +18,8 @@
   }
 
   const placeholders = {
-    name: "Search users",
-    team: "Search teams",
+    name: themeI18n.search_users || "Search users",
+    team: themeI18n.search_teams || "Search teams",
   };
 
   let activeField = "name";

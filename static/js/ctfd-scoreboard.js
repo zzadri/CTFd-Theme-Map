@@ -4,6 +4,8 @@
     return;
   }
 
+  const themeI18n = window.CTFD_THEME_I18N?.scoreboard || {};
+
   const elements = {
     graph: document.getElementById('ctfd-scoreboard-graph'),
     graphEmpty: document.getElementById('ctfd-scoreboard-graph-empty'),
@@ -24,6 +26,14 @@
   const modeLabel = root.dataset.modeLabel || 'Team';
   const allLabel = root.dataset.allLabel || 'All';
   const scoreboardUpdateInterval = Number(window.scoreboardUpdateInterval) || 300000;
+
+  function t(key, fallback, replacements = {}) {
+    let value = themeI18n[key] || fallback;
+    Object.entries(replacements).forEach(([token, replacement]) => {
+      value = value.replaceAll(`{${token}}`, String(replacement));
+    });
+    return value;
+  }
 
   function escapeHtml(value) {
     return String(value).replace(/[&<>"']/g, match => {
@@ -205,7 +215,7 @@
       if (Array.isArray(standing.members) && standing.members.length) {
         const memberChip = document.createElement('span');
         memberChip.className = 'ctfd-scoreboard__table-chip ctfd-scoreboard__table-chip--accent';
-        memberChip.textContent = `${standing.members.length} members`;
+        memberChip.textContent = `${standing.members.length} ${t('members_suffix', 'members')}`;
         meta.appendChild(memberChip);
       }
 
@@ -289,7 +299,7 @@
   function renderGraph() {
     const seriesList = normaliseSeries();
     if (!seriesList.length) {
-      setGraphEmpty('No graph data yet.');
+      setGraphEmpty(t('no_graph_data', 'No graph data yet.'));
       return;
     }
 
@@ -321,7 +331,7 @@
     const scaleY = value => padding.top + innerHeight - ((value - minY) / (maxY - minY)) * innerHeight;
 
     const svg = [];
-    svg.push(`<svg class="ctfd-scoreboard__graph-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="Score progression graph">`);
+    svg.push(`<svg class="ctfd-scoreboard__graph-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHtml(t('graph_aria_label', 'Score progression graph'))}">`);
 
     const yTicks = 5;
     for (let tickIndex = 0; tickIndex <= yTicks; tickIndex += 1) {
@@ -376,7 +386,7 @@
       renderGraph();
     } catch (error) {
       console.error('Unable to load graph data', error);
-      setGraphEmpty('Unable to load graph data.');
+      setGraphEmpty(t('graph_unavailable', 'Unable to load graph data.'));
     }
   }
 
@@ -399,7 +409,7 @@
       state.brackets = [];
       renderFilters();
       renderTable();
-      setGraphEmpty('Unable to load graph data.');
+      setGraphEmpty(t('graph_unavailable', 'Unable to load graph data.'));
     }
   }
 

@@ -154,9 +154,15 @@ Main customization points:
 - Map styles: `static/css/ctfd-map.css`
 - Map behavior: `static/js/ctfd-map.js`
 - Country dataset: `static/js/ctfd-map-data.js`
+- Theme i18n router: `templates/components/theme_i18n.html`
+- Theme translations: `templates/components/i18n/`
 - Content pages: `static/css/ctfd-page.css`
 - Scoreboard: `static/css/ctfd-scoreboard.css`
 - Users and teams: `static/css/ctfd-users.css`
+
+All public theme text and the admin theme-settings labels are stored inside the theme only.
+`templates/components/theme_i18n.html` routes the active locale, and each language lives in its own file under `templates/components/i18n/`.
+This keeps the i18n layer maintainable without any required core CTFd changes.
 
 ## Public Naming
 
