@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block stylesheets %}
+  {{ super() }}
+  <link
+    rel="stylesheet"
+    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/april-map.css') }}?v=20260319v"
+  >
+  <link
+    rel="stylesheet"
+    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/april-users.css') }}?v=20260319b"
+  >
+{% endblock %}
+
+{% block content %}
+  <section class="april-users-v2">
+    <div class="april-users-v2__shell">
+      {% include "components/errors.html" %}
+
+      <header class="april-users-v2__head">
+        <div class="april-users-v2__head-copy">
+          <p class="april-users-v2__eyebrow">Directory</p>
+          <div class="april-users-v2__title-row">
+            <h1>{% trans %}Users{% endtrans %}</h1>
+            <div class="april-users-v2__head-stats">
+              <span class="april-users-v2__stat-chip">
+                <span class="april-users-v2__stat-label">Total</span>
+                <strong>{{ users.total }}</strong>
+              </span>
+              <span class="april-users-v2__stat-chip">
+                <span class="april-users-v2__stat-label">Visible</span>
+                <strong data-visible-count>{{ users.items | length }}</strong>
+              </span>
+            </div>
+          </div>
+          <p class="april-users-v2__summary">
+            Public profiles only. Search the current page by name or team.
+          </p>
+        </div>
+
+        <section class="april-users-v2__toolbar" data-user-directory-toolbar>
+          <div class="april-users-v2__toolbar-controls">
+            <div class="april-users-v2__search-mode" role="tablist" aria-label="Search mode selector">
+              <button type="button" class="april-users-v2__search-mode-btn is-active" data-filter-field="name" aria-pressed="true">
+                Name
+              </button>
+              <button type="button" class="april-users-v2__search-mode-btn" data-filter-field="team" aria-pressed="false">
+                Team
+              </button>
+            </div>
+
+            <label class="april-users-v2__searchbox" for="april-user-search-input">
+              <span>Search</span>
+              <input
+                id="april-user-search-input"
+                type="search"
+                autocomplete="off"
+                placeholder="Search users"
+                value="{{ q or '' }}"
+                data-user-filter-input
+              >
+            </label>
+
+            <button type="button" class="april-users-v2__search-reset" data-user-filter-reset>
+              Reset
+            </button>
+          </div>
+        </section>
+      </header>
+
+      <section class="april-users-v2__list" aria-live="polite" data-user-directory>
+        {% for user in users.items %}
+          {% set team_name = user.team.name if user.team else '' %}
+          {% set country_name = lookup_country_code(user.country) if user.country else 'unknown' %}
+          {% set website_value = user.website | truncate(40) if user.website and (user.website.startswith('http://') or user.website.startswith('https://')) else 'none' %}
+          {% set affiliation_value = user.affiliation | truncate(40) if user.affiliation else 'none' %}
+          <article
+            class="april-user-card"
+            data-user-card
+            data-search-name="{{ (user.name or '') | lower | e }}"
+            data-search-team="{{ team_name | lower | e }}"
+          >
+            {% if scores_visible() %}
+              <a
+                class="april-user-card__link"
+                href="{{ url_for('users.public', user_id=user.id) }}"
+                aria-label="Open profile for {{ user.name }}"
+              ></a>
+            {% endif %}
+
+            <div class="april-user-card__body">
+              <div class="april-user-card__header">
+                <div class="april-user-card__avatar">{{ (user.name or '?')[:2] | upper }}</div>
+
+                <div class="april-user-card__heading">
+                  <div class="april-user-card__title-row">
+                    <h2 class="april-user-card__name">{{ user.name | truncate(42) }}</h2>
+                  </div>
+
+                  <div class="april-user-card__facts">
+                    {% if team_name %}
+                      <span class="april-user-card__fact april-user-card__fact--accent">
+                        <span class="april-user-card__fact-label">Team</span>
+                        <strong>{{ team_name | truncate(32) }}</strong>
+                      </span>
+                    {% endif %}
+
+                    {% if scores_visible() %}
+                      <span class="april-user-card__fact april-user-card__fact--score">
+                        <span class="april-user-card__fact-label">Points</span>
+                        <strong>{{ user.score or 0 }}</strong>
+                      </span>
+                    {% endif %}
+
+                    {% if user.bracket_id %}
+                      <span class="april-user-card__fact">
+                        <span class="april-user-card__fact-label">Bracket</span>
+                        <strong>{{ user.bracket.name }}</strong>
+                      </span>
+                    {% endif %}
+
+                    {% if user.oauth_id %}
+                      <span class="april-user-card__fact april-user-card__fact--muted">
+                        <span class="april-user-card__fact-label">Status</span>
+                        <strong>Official</strong>
+                      </span>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+
+              <div class="april-user-card__meta">
+                <span class="april-user-card__meta-item">
+                  <span class="april-user-card__meta-label">Country</span>
+                  <span class="april-user-card__meta-value">
+                    {% if user.country %}
+                      <i class="flag-{{ user.country.lower() }}" aria-hidden="true"></i>
+                      {{ country_name }}
+                    {% else %}
+                      <span class="april-user-card__unknown-flag" aria-hidden="true">?</span>
+                      unknown
+                    {% endif %}
+                  </span>
+                </span>
+
+                <span class="april-user-card__meta-item">
+                  <span class="april-user-card__meta-label">Affiliation</span>
+                  <span class="april-user-card__meta-value">{{ affiliation_value }}</span>
+                </span>
+
+                <span class="april-user-card__meta-item april-user-card__meta-item--wide">
+                  <span class="april-user-card__meta-label">Website</span>
+                  <span class="april-user-card__meta-value">{{ website_value }}</span>
+                </span>
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      </section>
+
+      <div class="april-users-v2__empty" data-user-empty {% if users.items %}hidden{% endif %}>
+        <h2>Aucun utilisateur visible</h2>
+        <p>Essayez un autre nom ou une autre equipe.</p>
+      </div>
+
+      {% if users.pages > 1 %}
+        <nav class="april-users-v2__pagination" aria-label="User list pagination">
+          <span>{% trans %}Page{% endtrans %}</span>
+
+          {% if users.page != 1 %}
+            <a href="{{ prev_page }}" aria-label="Previous page">&lt;&lt;&lt;</a>
+          {% endif %}
+
+          <select class="page-select" aria-label="Page selector">
+            {% for page in range(1, users.pages + 1) %}
+              <option {% if users.page == page %}selected{% endif %}>{{ page }}</option>
+            {% endfor %}
+          </select>
+
+          {% if users.next_num %}
+            <a href="{{ next_page }}" aria-label="Next page">&gt;&gt;&gt;</a>
+          {% endif %}
+        </nav>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}
+
+{% block scripts %}
+  {{ Assets.js("assets/js/users/list.js") }}
+  <script defer src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/april-users.js') }}?v=20260315d"></script>
+{% endblock %}

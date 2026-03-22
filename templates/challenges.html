@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block stylesheets %}
+  {{ super() }}
+  <link
+    rel="stylesheet"
+    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/april-map.css') }}?v=20260319y"
+  >
+{% endblock %}
+
+{% block content %}
+  <section class="april-map-root">
+    <div class="april-map-alerts">
+      {% include "components/errors.html" %}
+    </div>
+
+    <div class="april-map-experience" id="april-map-experience">
+      <div class="april-map-stage">
+        <div
+          class="april-map-viewport"
+          id="april-map-viewport"
+          data-map-src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='img/europe-map.svg') }}?v=20260319c"
+        >
+          <div class="april-map-loading">Loading Europe map...</div>
+        </div>
+      </div>
+
+      <aside class="april-map-panel" id="april-map-panel" aria-hidden="true">
+        <div class="april-map-panel-body">
+          <section class="april-map-panel-overview">
+            <p class="april-map-panel-label" id="april-country-code">Zone</p>
+            <div class="april-map-panel-heading-row">
+              <h2 class="april-map-panel-title" id="april-country-name">Selection</h2>
+              <div class="april-map-panel-status" id="april-country-status"></div>
+            </div>
+            <p class="april-map-panel-copy" id="april-country-summary"></p>
+
+            <div class="april-map-filters">
+              <div class="april-map-filter">
+                <label class="april-map-filter-label" for="april-filter-difficulty">Difficulte</label>
+                <select class="april-map-filter-input" id="april-filter-difficulty">
+                  <option value="">Toutes</option>
+                </select>
+              </div>
+
+              <div class="april-map-filter">
+                <label class="april-map-filter-label" for="april-filter-category">Categorie</label>
+                <select class="april-map-filter-input" id="april-filter-category">
+                  <option value="">Toutes</option>
+                </select>
+              </div>
+
+              <button type="button" class="april-map-filter-reset" id="april-filter-reset" hidden>
+                Reinitialiser
+              </button>
+            </div>
+          </section>
+
+          <section class="april-map-panel-list-shell">
+            <div class="april-map-panel-list-head">
+              <div>
+                <p class="april-map-panel-list-label">Challenges</p>
+                <p class="april-map-panel-list-subtitle" id="april-country-list-meta">
+                  Cliquez sur un challenge pour ouvrir sa fiche.
+                </p>
+              </div>
+              <button type="button" class="april-map-panel-close" id="april-map-panel-close">
+                Fermer
+              </button>
+            </div>
+            <div class="april-map-challenges" id="april-country-challenges"></div>
+          </section>
+        </div>
+      </aside>
+    </div>
+
+    <div
+      class="april-map-modal-host"
+      x-data="ChallengeBoard"
+      @load-challenges.window="loadChallenges()"
+      @load-challenge.window="loadChallenge($event.detail)"
+    >
+      <div
+        x-ref="challengeWindow"
+        id="challenge-window"
+        class="modal fade"
+        tabindex="-1"
+        role="dialog"
+        x-data=""
+        x-html="$store.challenge.data.view"
+      ></div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block scripts %}
+  {{ Assets.js("assets/js/challenges.js") }}
+  <script>
+    window.APRIL_MAP_CONFIG = window.APRIL_MAP_CONFIG || {};
+    window.APRIL_MAP_CONFIG.mapAsset = "{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='img/europe-map.svg') }}?v=20260319c";
+    window.APRIL_MAP_CONFIG.isAdmin = {{ is_admin() | tojson }};
+  </script>
+  <script src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/april-map-data.js') }}?v=20260315g"></script>
+  <script type="module" src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/april-map.js') }}?v=20260319k"></script>
+{% endblock %}

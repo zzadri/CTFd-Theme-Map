@@ -1,0 +1,501 @@
+﻿[x-cloak] {
+  display: none !important;
+}
+
+.april-scoreboard {
+  padding: 5.85rem 0 2.4rem;
+  min-height: calc(100vh - 56px);
+}
+
+.april-scoreboard__shell {
+  width: min(1420px, calc(100vw - 40px));
+  margin: 0 auto;
+  display: grid;
+  gap: 0.95rem;
+}
+
+.april-scoreboard__hero,
+.april-scoreboard__graph-panel,
+.april-scoreboard__board-panel,
+.april-scoreboard__empty {
+  border: 1px solid rgba(102, 207, 217, 0.09);
+  border-radius: 24px;
+  background: rgba(7, 16, 21, 0.84);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
+}
+
+.april-scoreboard__hero,
+.april-scoreboard__graph-panel,
+.april-scoreboard__board-panel {
+  padding: 1rem 1.1rem;
+}
+
+.april-scoreboard__eyebrow,
+.april-scoreboard__label,
+.april-scoreboard__subline,
+.april-scoreboard__filter {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  text-transform: uppercase;
+}
+
+.april-scoreboard__eyebrow,
+.april-scoreboard__label,
+.april-scoreboard__subline {
+  margin: 0;
+  color: #66cfd9;
+  font-size: 0.64rem;
+  letter-spacing: 0.14rem;
+}
+
+.april-scoreboard__hero-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+}
+
+.april-scoreboard__hero h1 {
+  margin: 0;
+  color: #edf7fa;
+  font-family: "Raleway", sans-serif;
+  font-size: clamp(1.95rem, 3vw, 2.9rem);
+  line-height: 1;
+}
+
+.april-scoreboard__hero p {
+  margin: 0.55rem 0 0;
+  max-width: 52rem;
+  color: #93aab0;
+  font-family: "Lato", sans-serif;
+  line-height: 1.6;
+}
+
+.april-scoreboard__statline {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  justify-content: flex-end;
+}
+
+.april-scoreboard__chip,
+.april-scoreboard__filter,
+.april-scoreboard__table-chip,
+.april-scoreboard__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.1rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid rgba(102, 207, 217, 0.1);
+  border-radius: 999px;
+  background: rgba(9, 20, 26, 0.86);
+  color: #edf7fa;
+}
+
+.april-scoreboard__chip strong {
+  font-family: "Raleway", sans-serif;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.april-scoreboard__graph-panel,
+.april-scoreboard__board-panel {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.april-scoreboard__panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.april-scoreboard__panel-head h2 {
+  margin: 0;
+  color: #edf7fa;
+  font-family: "Raleway", sans-serif;
+  font-size: 1.3rem;
+}
+
+.april-scoreboard__graph-wrap {
+  min-height: 380px;
+  padding: 1rem;
+  border: 1px solid rgba(102, 207, 217, 0.08);
+  border-radius: 18px;
+  background: rgba(9, 20, 26, 0.8);
+  display: grid;
+  gap: 0.85rem;
+}
+
+.april-scoreboard__graph {
+  min-height: 360px;
+}
+
+.april-scoreboard__graph-empty,
+.april-scoreboard__empty {
+  display: grid;
+  place-items: center;
+  color: #93aab0;
+  text-align: center;
+}
+
+.april-scoreboard__graph-empty {
+  min-height: 360px;
+  border: 1px dashed rgba(102, 207, 217, 0.16);
+  border-radius: 14px;
+  background: rgba(7, 16, 21, 0.56);
+}
+
+.april-scoreboard__graph-svg {
+  width: 100%;
+  height: 360px;
+  display: block;
+}
+
+.april-scoreboard__axis-line,
+.april-scoreboard__grid-line,
+.april-scoreboard__grid-line--vertical {
+  stroke-linecap: round;
+}
+
+.april-scoreboard__axis-line {
+  stroke: rgba(102, 207, 217, 0.16);
+  stroke-width: 1.2;
+}
+
+.april-scoreboard__grid-line,
+.april-scoreboard__grid-line--vertical {
+  stroke: rgba(102, 207, 217, 0.08);
+  stroke-width: 1;
+}
+
+.april-scoreboard__axis-label,
+.april-scoreboard__point-label {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.april-scoreboard__axis-label {
+  fill: #86a5ac;
+  font-size: 11px;
+  letter-spacing: 0.03rem;
+}
+
+.april-scoreboard__point-label {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.april-scoreboard__series-line {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.april-scoreboard__series-point {
+  stroke: rgba(7, 16, 21, 0.95);
+  stroke-width: 2;
+}
+
+.april-scoreboard__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.april-scoreboard__legend-item {
+  padding-inline: 0.7rem;
+}
+
+.april-scoreboard__legend-swatch {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 999px;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.04);
+}
+
+.april-scoreboard__legend-name {
+  color: #edf7fa;
+  font-family: "Raleway", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.april-scoreboard__legend-score {
+  color: #93aab0;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.76rem;
+}
+
+.april-scoreboard__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.april-scoreboard__filter {
+  background: rgba(9, 20, 26, 0.88);
+  color: #8faab0;
+  font-size: 0.66rem;
+  letter-spacing: 0.08rem;
+}
+
+.april-scoreboard__filter.is-active {
+  background: rgba(18, 56, 68, 0.94);
+  color: #edf7fa;
+  border-color: rgba(102, 207, 217, 0.22);
+}
+
+.april-scoreboard__table-wrap {
+  border: 1px solid rgba(102, 207, 217, 0.08);
+  border-radius: 18px;
+  background: rgba(9, 20, 26, 0.8);
+  overflow: hidden;
+}
+
+.april-scoreboard__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.april-scoreboard__table thead th {
+  padding: 0.95rem 1rem;
+  border-bottom: 1px solid rgba(102, 207, 217, 0.08);
+  color: #93aab0;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.08rem;
+  text-transform: uppercase;
+}
+
+.april-scoreboard__table tbody tr {
+  border-bottom: 1px solid rgba(102, 207, 217, 0.06);
+}
+
+.april-scoreboard__table tbody tr:last-child {
+  border-bottom: 0;
+}
+
+.april-scoreboard__table td {
+  padding: 0.9rem 1rem;
+  vertical-align: middle;
+  color: #d7e8eb;
+  font-family: "Lato", sans-serif;
+}
+
+.april-scoreboard__place {
+  width: 84px;
+}
+
+.april-scoreboard__place-value {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid rgba(102, 207, 217, 0.14);
+  border-radius: 999px;
+  background: rgba(12, 35, 43, 0.92);
+  color: #b8eef3;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.8rem;
+}
+
+.april-scoreboard__name-link {
+  color: #edf7fa;
+  font-family: "Raleway", sans-serif;
+  font-size: 1.06rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.april-scoreboard__name-link:hover {
+  color: #b8eef3;
+}
+
+.april-scoreboard__table-meta {
+  margin-top: 0.45rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.april-scoreboard__table-chip {
+  min-height: 1.85rem;
+  padding: 0.3rem 0.65rem;
+  color: #d7e8eb;
+  font-size: 0.8rem;
+}
+
+.april-scoreboard__table-chip--accent {
+  background: rgba(14, 42, 52, 0.92);
+  border-color: rgba(102, 207, 217, 0.18);
+}
+
+.april-scoreboard__score {
+  width: 120px;
+  text-align: right;
+}
+
+.april-scoreboard__score-value {
+  color: #dcfce7;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 1rem;
+}
+
+.april-scoreboard__empty {
+  min-height: 180px;
+  padding: 1.25rem;
+}
+
+.april-scoreboard__empty h3 {
+  margin: 0;
+  color: #edf7fa;
+  font-family: "Raleway", sans-serif;
+}
+
+.april-scoreboard__empty p {
+  margin: 0.6rem 0 0;
+  color: #93aab0;
+}
+
+@media (max-width: 920px) {
+  .april-scoreboard__shell {
+    width: min(calc(100vw - 24px), 100%);
+  }
+
+  .april-scoreboard__hero-head,
+  .april-scoreboard__panel-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 680px) {
+  .april-scoreboard {
+    padding-top: 5.7rem;
+  }
+
+  .april-scoreboard__shell {
+    width: calc(100vw - 16px);
+  }
+
+  .april-scoreboard__hero,
+  .april-scoreboard__graph-panel,
+  .april-scoreboard__board-panel,
+  .april-scoreboard__empty {
+    padding: 0.9rem;
+    border-radius: 20px;
+  }
+
+  .april-scoreboard__graph-wrap {
+    padding: 0.8rem;
+  }
+
+  .april-scoreboard__graph,
+  .april-scoreboard__graph-empty,
+  .april-scoreboard__graph-svg {
+    min-height: 300px;
+    height: 300px;
+  }
+
+  .april-scoreboard__table-wrap {
+    overflow-x: auto;
+  }
+
+  .april-scoreboard__table {
+    min-width: 620px;
+  }
+}
+
+[data-bs-theme="light"] .april-scoreboard__hero,
+[data-bs-theme="light"] .april-scoreboard__graph-panel,
+[data-bs-theme="light"] .april-scoreboard__board-panel,
+[data-bs-theme="light"] .april-scoreboard__empty {
+  border-color: rgba(26, 90, 111, 0.22);
+  background: rgba(244, 250, 253, 0.95);
+  box-shadow: 0 12px 30px rgba(24, 78, 95, 0.12);
+}
+
+[data-bs-theme="light"] .april-scoreboard__eyebrow,
+[data-bs-theme="light"] .april-scoreboard__label,
+[data-bs-theme="light"] .april-scoreboard__subline {
+  color: #1e7388;
+}
+
+[data-bs-theme="light"] .april-scoreboard__hero h1,
+[data-bs-theme="light"] .april-scoreboard__panel-head h2,
+[data-bs-theme="light"] .april-scoreboard__name-link,
+[data-bs-theme="light"] .april-scoreboard__legend-name,
+[data-bs-theme="light"] .april-scoreboard__table td {
+  color: #123440;
+}
+
+[data-bs-theme="light"] .april-scoreboard__hero p,
+[data-bs-theme="light"] .april-scoreboard__legend-score,
+[data-bs-theme="light"] .april-scoreboard__empty p,
+[data-bs-theme="light"] .april-scoreboard__table thead th {
+  color: #4a5f6a;
+}
+
+[data-bs-theme="light"] .april-scoreboard__chip,
+[data-bs-theme="light"] .april-scoreboard__filter,
+[data-bs-theme="light"] .april-scoreboard__table-chip,
+[data-bs-theme="light"] .april-scoreboard__legend-item,
+[data-bs-theme="light"] .april-scoreboard__table-wrap,
+[data-bs-theme="light"] .april-scoreboard__graph-wrap {
+  border-color: rgba(26, 90, 111, 0.2);
+  background: rgba(237, 247, 251, 0.96);
+  color: #1a4a58;
+}
+
+[data-bs-theme="light"] .april-scoreboard__filter {
+  color: #4a5f6a;
+}
+
+[data-bs-theme="light"] .april-scoreboard__filter.is-active {
+  background: rgba(30, 115, 136, 0.16);
+  border-color: rgba(30, 115, 136, 0.28);
+  color: #123440;
+}
+
+[data-bs-theme="light"] .april-scoreboard__graph-empty {
+  border-color: rgba(26, 90, 111, 0.22);
+  background: rgba(248, 252, 255, 0.98);
+  color: #4a5f6a;
+}
+
+[data-bs-theme="light"] .april-scoreboard__axis-line {
+  stroke: rgba(26, 90, 111, 0.32);
+}
+
+[data-bs-theme="light"] .april-scoreboard__grid-line,
+[data-bs-theme="light"] .april-scoreboard__grid-line--vertical {
+  stroke: rgba(26, 90, 111, 0.2);
+}
+
+[data-bs-theme="light"] .april-scoreboard__axis-label {
+  fill: #4a5f6a;
+}
+
+[data-bs-theme="light"] .april-scoreboard__table thead th {
+  border-bottom-color: rgba(26, 90, 111, 0.18);
+}
+
+[data-bs-theme="light"] .april-scoreboard__table tbody tr {
+  border-bottom-color: rgba(26, 90, 111, 0.14);
+}
+
+[data-bs-theme="light"] .april-scoreboard__place-value {
+  border-color: rgba(26, 90, 111, 0.24);
+  background: rgba(228, 244, 249, 0.94);
+  color: #0f5a6c;
+}
+
+[data-bs-theme="light"] .april-scoreboard__name-link:hover {
+  color: #0f5a6c;
+}
+
+[data-bs-theme="light"] .april-scoreboard__score-value {
+  color: #2f8d5f;
+}
