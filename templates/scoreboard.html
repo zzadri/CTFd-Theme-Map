@@ -5,11 +5,11 @@
   {{ super() }}
   <link
     rel="stylesheet"
-    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/ctfd-map.css') }}?v=20260322r"
+    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/ctfd-map.css') }}?v=20260322v"
   >
   <link
     rel="stylesheet"
-    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/ctfd-scoreboard.css') }}?v=20260319b"
+    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/ctfd-scoreboard.css') }}?v=20260322d"
   >
 {% endblock %}
 
@@ -45,6 +45,8 @@
           </div>
         </div>
       </header>
+
+      <section id="ctfd-scoreboard-podium" class="ctfd-scoreboard__podium" hidden></section>
 
       <section class="ctfd-scoreboard__graph-panel">
         <div class="ctfd-scoreboard__panel-head">
@@ -102,6 +104,6 @@
   {{ i18n.script() }}
   <script
     defer
-    src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/ctfd-scoreboard.js') }}?v=20260322a"
+    src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/ctfd-scoreboard.js') }}?v=20260322b"
   ></script>
 {% endblock %}

@@ -7,6 +7,7 @@
   const themeI18n = window.CTFD_THEME_I18N?.scoreboard || {};
 
   const elements = {
+    podium: document.getElementById('ctfd-scoreboard-podium'),
     graph: document.getElementById('ctfd-scoreboard-graph'),
     graphEmpty: document.getElementById('ctfd-scoreboard-graph-empty'),
     legend: document.getElementById('ctfd-scoreboard-legend'),
@@ -174,6 +175,7 @@
 
   function renderTable() {
     const standings = getFilteredStandings();
+    renderPodium(standings);
     elements.rows.innerHTML = '';
 
     if (!standings.length) {
@@ -192,6 +194,9 @@
       placeCell.className = 'ctfd-scoreboard__place';
       const placeValue = document.createElement('span');
       placeValue.className = 'ctfd-scoreboard__place-value';
+      if (index < 3) {
+        placeValue.classList.add(`is-rank-${index + 1}`);
+      }
       placeValue.textContent = String(index + 1);
       placeCell.appendChild(placeValue);
 
@@ -234,6 +239,58 @@
       row.appendChild(nameCell);
       row.appendChild(scoreCell);
       elements.rows.appendChild(row);
+    });
+  }
+
+  function renderPodium(standings) {
+    if (!elements.podium) {
+      return;
+    }
+
+    const leaders = standings.slice(0, 3);
+    elements.podium.innerHTML = '';
+
+    if (!leaders.length) {
+      elements.podium.hidden = true;
+      return;
+    }
+
+    elements.podium.hidden = false;
+
+    leaders.forEach((standing, index) => {
+      const rank = index + 1;
+      const meta = [];
+
+      if (standing.bracket_name) {
+        meta.push(`<span class="ctfd-scoreboard__podium-chip">${escapeHtml(standing.bracket_name)}</span>`);
+      }
+
+      if (Array.isArray(standing.members) && standing.members.length) {
+        meta.push(
+          `<span class="ctfd-scoreboard__podium-chip ctfd-scoreboard__podium-chip--accent">${standing.members.length} ${escapeHtml(t('members_suffix', 'members'))}</span>`
+        );
+      }
+
+      const href = escapeHtml(standing.account_url || '#');
+      const name = escapeHtml(standing.name || `${modeLabel} ${rank}`);
+      const score = escapeHtml(String(standing.score ?? 0));
+
+      elements.podium.insertAdjacentHTML(
+        'beforeend',
+        `
+          <article class="ctfd-scoreboard__podium-step is-rank-${rank}">
+            <div class="ctfd-scoreboard__podium-card">
+              <span class="ctfd-scoreboard__podium-medal">${rank}</span>
+              <a class="ctfd-scoreboard__podium-name" href="${href}">${name}</a>
+              ${meta.length ? `<div class="ctfd-scoreboard__podium-meta">${meta.join('')}</div>` : ''}
+              <strong class="ctfd-scoreboard__podium-score">${score}</strong>
+            </div>
+            <div class="ctfd-scoreboard__podium-base">
+              <span class="ctfd-scoreboard__podium-rank">${rank}</span>
+            </div>
+          </article>
+        `
+      );
     });
   }
 

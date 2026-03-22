@@ -404,6 +404,40 @@ if (root) {
       "  background: rgba(30, 115, 136, 0.08) !important;",
       "  color: #123440 !important;",
       "}",
+      "html[data-bs-theme='light'] #challenge-window .notification-row .alert {",
+      "  border-radius: 16px !important;",
+      "  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.54), 0 14px 30px rgba(28, 86, 104, 0.12) !important;",
+      "}",
+      "html[data-bs-theme='light'] #challenge-window .notification-row .alert-success {",
+      "  background: linear-gradient(180deg, rgba(246, 255, 250, 0.98), rgba(228, 245, 236, 0.98)) !important;",
+      "  border-color: rgba(63, 142, 98, 0.26) !important;",
+      "  color: #1f5b3d !important;",
+      "}",
+      "html[data-bs-theme='light'] #challenge-window .notification-row .alert-info {",
+      "  background: linear-gradient(180deg, rgba(247, 253, 255, 0.98), rgba(231, 245, 250, 0.98)) !important;",
+      "  border-color: rgba(35, 107, 127, 0.24) !important;",
+      "  color: #123440 !important;",
+      "}",
+      "html[data-bs-theme='light'] #challenge-window .notification-row .alert-danger {",
+      "  background: linear-gradient(180deg, rgba(255, 248, 249, 0.98), rgba(249, 233, 236, 0.98)) !important;",
+      "  border-color: rgba(193, 78, 78, 0.26) !important;",
+      "  color: #7d2f35 !important;",
+      "}",
+      "html[data-bs-theme='light'] #challenge-window .notification-row .alert-warning {",
+      "  background: linear-gradient(180deg, rgba(255, 252, 246, 0.98), rgba(251, 240, 220, 0.98)) !important;",
+      "  border-color: rgba(179, 132, 38, 0.3) !important;",
+      "  color: #6d5212 !important;",
+      "}",
+      "html[data-bs-theme='light'] #challenge-window .notification-row .btn-info {",
+      "  background: linear-gradient(180deg, rgba(246, 252, 255, 0.98), rgba(232, 244, 249, 0.98)) !important;",
+      "  border-color: rgba(35, 107, 127, 0.24) !important;",
+      "  color: #123440 !important;",
+      "}",
+      "html[data-bs-theme='light'] #challenge-window .notification-row .btn-outline-info {",
+      "  background: rgba(248, 253, 255, 0.94) !important;",
+      "  border-color: rgba(35, 107, 127, 0.24) !important;",
+      "  color: #165264 !important;",
+      "}",
       "html[data-bs-theme='light'] #challenge-window code {",
       "  border: 1px solid rgba(50, 108, 126, 0.2) !important;",
       "  border-radius: 8px !important;",
@@ -1053,7 +1087,7 @@ if (root) {
         "border-style",
         "box-shadow",
       ]);
-      clearInlineStyles(".ctfd-map-tag.ctfd-map-tag-category", [
+      clearInlineStyles(".ctfd-map-tag", [
         "color",
         "border-color",
         "background-color",
@@ -1099,7 +1133,17 @@ if (root) {
       el.style.boxShadow = "inset 0 1px 0 rgba(255, 255, 255, 0.76), 0 6px 14px rgba(33, 96, 114, 0.08)";
     });
 
-    // 3. Category tags (.ctfd-map-tag.ctfd-map-tag-category)
+    // 3. Generic tags (.ctfd-map-tag)
+    document.querySelectorAll(".ctfd-map-tag").forEach(el => {
+      el.style.color = el.classList.contains("is-muted") ? "rgba(51, 80, 93, 0.72)" : "#33505d";
+      el.style.borderColor = "rgba(35, 107, 127, 0.16)";
+      el.style.background = "linear-gradient(180deg, rgba(249, 253, 255, 0.98), rgba(236, 246, 250, 0.98))";
+      el.style.borderWidth = "1px";
+      el.style.borderStyle = "solid";
+      el.style.boxShadow = "inset 0 1px 0 rgba(255, 255, 255, 0.68), 0 5px 12px rgba(33, 96, 114, 0.05)";
+    });
+
+    // 4. Category tags (.ctfd-map-tag.ctfd-map-tag-category)
     document.querySelectorAll(".ctfd-map-tag.ctfd-map-tag-category").forEach(el => {
       el.style.color = "#1b6074";
       el.style.borderColor = "rgba(35, 107, 127, 0.2)";
@@ -1109,7 +1153,7 @@ if (root) {
       el.style.boxShadow = "inset 0 1px 0 rgba(255, 255, 255, 0.72), 0 6px 14px rgba(33, 96, 114, 0.06)";
     });
 
-    // 4. Points (.ctfd-map-challenge-points)
+    // 5. Points (.ctfd-map-challenge-points)
     document.querySelectorAll(".ctfd-map-challenge-points").forEach(el => {
       el.style.borderColor = "rgba(35, 107, 127, 0.26)";
       el.style.background = "linear-gradient(180deg, rgba(252, 255, 255, 0.98), rgba(231, 243, 248, 0.98))";
@@ -1119,7 +1163,7 @@ if (root) {
       el.style.boxShadow = "inset 0 1px 0 rgba(255, 255, 255, 0.74), 0 8px 18px rgba(33, 96, 114, 0.1)";
     });
 
-    // 4b. Solved challenge badges in light mode
+    // 5b. Solved challenge badges in light mode
     document.querySelectorAll(".ctfd-map-challenge-row.is-solved .ctfd-map-challenge-index").forEach(el => {
       el.style.background = "linear-gradient(180deg, rgba(248, 255, 251, 0.98), rgba(228, 243, 234, 0.98))";
       el.style.borderColor = "rgba(72, 149, 105, 0.24)";
@@ -1141,7 +1185,7 @@ if (root) {
       el.style.boxShadow = "inset 0 1px 0 rgba(255, 255, 255, 0.78), 0 8px 18px rgba(41, 117, 79, 0.08)";
     });
 
-    // 5. Difficulty dots (.ctfd-map-challenge-difficulty)
+    // 6. Difficulty dots (.ctfd-map-challenge-difficulty)
     document.querySelectorAll(".ctfd-map-challenge-difficulty").forEach(el => {
       el.style.borderWidth = "1.5px";
       el.style.borderStyle = "solid";
