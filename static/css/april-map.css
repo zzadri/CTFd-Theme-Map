@@ -17,6 +17,10 @@
   --april-stage-radial: rgba(102, 207, 217, 0.06);
   --april-stage-grad-start: rgba(7, 15, 20, 0.5);
   --april-stage-grad-end: rgba(2, 6, 8, 0.96);
+  --april-stage-grid-soft: rgba(102, 207, 217, 0.028);
+  --april-stage-grid-strong: rgba(102, 207, 217, 0.05);
+  --april-stage-dots-soft: rgba(102, 207, 217, 0.035);
+  --april-stage-dots-strong: rgba(102, 207, 217, 0.06);
   --april-texture-line: rgba(102, 207, 217, 0.02);
   --april-texture-dot: rgba(102, 207, 217, 0.045);
 }
@@ -40,6 +44,10 @@
   --april-stage-radial: rgba(54, 122, 141, 0.12);
   --april-stage-grad-start: rgba(230, 242, 248, 0.96);
   --april-stage-grad-end: rgba(216, 233, 241, 0.99);
+  --april-stage-grid-soft: rgba(32, 91, 108, 0.055);
+  --april-stage-grid-strong: rgba(32, 91, 108, 0.08);
+  --april-stage-dots-soft: rgba(32, 91, 108, 0.055);
+  --april-stage-dots-strong: rgba(32, 91, 108, 0.085);
   --april-texture-line: rgba(32, 91, 108, 0.07);
   --april-texture-dot: rgba(32, 91, 108, 0.09);
 }
@@ -59,9 +67,9 @@ body.april-map-body {
 }
 
 body.april-map-body main[role="main"] {
-  height: calc(100dvh - 56px);
-  min-height: calc(100vh - 56px);
+  margin-bottom: 0 !important;
   overflow: hidden;
+  background: transparent;
 }
 
 .navbar {
@@ -69,6 +77,16 @@ body.april-map-body main[role="main"] {
   border-bottom: 1px solid color-mix(in oklab, var(--april-accent) 22%, transparent);
   box-shadow: 0 10px 24px color-mix(in oklab, var(--april-accent) 20%, transparent);
   backdrop-filter: blur(16px);
+}
+
+body.april-map-body .navbar {
+  box-shadow: none;
+  border-bottom-color: rgba(102, 207, 217, 0.12);
+}
+
+[data-bs-theme="light"] body.april-map-body .navbar {
+  box-shadow: none;
+  border-bottom-color: rgba(26, 90, 111, 0.18);
 }
 
 [data-bs-theme="light"] .navbar {
@@ -86,10 +104,6 @@ body.april-map-body main[role="main"] {
 .navbar .navbar-brand:hover,
 .navbar .dropdown-toggle:hover {
   color: var(--april-accent) !important;
-}
-
-.footer {
-  display: none;
 }
 
 .april-map-root,
@@ -123,6 +137,8 @@ body.april-map-body main[role="main"] {
 .april-map-stage {
   position: relative;
   background:
+    radial-gradient(circle at 18% 14%, rgba(102, 207, 217, 0.05), transparent 22%),
+    radial-gradient(circle at 82% 12%, rgba(102, 207, 217, 0.035), transparent 20%),
     radial-gradient(circle at 50% 12%, var(--april-stage-radial), transparent 23%),
     linear-gradient(180deg, var(--april-stage-grad-start), var(--april-stage-grad-end));
 }
@@ -137,15 +153,21 @@ body.april-map-body main[role="main"] {
 
 .april-map-stage::before {
   background-image:
-    linear-gradient(var(--april-texture-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--april-texture-line) 1px, transparent 1px),
-    radial-gradient(circle at 1px 1px, var(--april-texture-dot) 0.9px, transparent 1px);
-  background-size: 42px 42px, 42px 42px, 18px 18px;
-  mask-image: linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 88%);
+    linear-gradient(var(--april-stage-grid-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--april-stage-grid-soft) 1px, transparent 1px),
+    linear-gradient(var(--april-stage-grid-strong) 1px, transparent 1px),
+    linear-gradient(90deg, var(--april-stage-grid-strong) 1px, transparent 1px),
+    radial-gradient(circle at 1px 1px, var(--april-stage-dots-soft) 1px, transparent 1.1px),
+    radial-gradient(circle at 1.5px 1.5px, var(--april-stage-dots-strong) 1px, transparent 1.2px),
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.014) 0 1px, transparent 1px 24px);
+  background-size: 48px 48px, 48px 48px, 160px 160px, 160px 160px, 20px 20px, 34px 34px, 100% 100%;
+  background-position: center center, center center, center center, center center, 0 0, 10px 14px, center center;
+  mask-image: linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.1) 62%, transparent 96%);
+  opacity: 0.92;
 }
 
 .april-map-stage::after {
-  background: radial-gradient(circle at center, transparent 48%, rgba(0, 0, 0, 0.28) 100%);
+  background: radial-gradient(circle at center, transparent 44%, rgba(0, 0, 0, 0.22) 100%);
 }
 
 .april-map-viewport {
@@ -782,12 +804,37 @@ body.april-map-body main[role="main"] {
   white-space: nowrap;
 }
 
+[data-bs-theme="light"] .april-map-challenge-points {
+  border-color: rgba(35, 107, 127, 0.26);
+  background: linear-gradient(180deg, rgba(252, 255, 255, 0.98), rgba(231, 243, 248, 0.98));
+  color: #123440;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.74),
+    0 8px 18px rgba(33, 96, 114, 0.1);
+}
+
+[data-bs-theme="light"] .april-map-challenge-row:hover .april-map-challenge-points,
+[data-bs-theme="light"] .april-map-challenge-row:focus-visible .april-map-challenge-points {
+  border-color: rgba(28, 101, 120, 0.34);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(236, 246, 250, 1));
+  color: #0f3140;
+}
+
 .april-map-challenge-difficulty {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
   width: 0.95rem;
   height: 0.95rem;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.03);
+  background-clip: padding-box;
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    border-color 0.16s ease;
 }
 
 .april-map-challenge-difficulty.is-intro {
@@ -816,14 +863,23 @@ body.april-map-body main[role="main"] {
 
 .april-map-challenge-difficulty.is-unknown {
   background: rgba(184, 238, 243, 0.28);
+  border-color: rgba(184, 238, 243, 0.24);
 }
 
 [data-bs-theme="light"] .april-map-challenge-difficulty.is-unknown {
-  background: radial-gradient(circle at 35% 35%, #92dce9 0%, #61bed0 45%, #23677b 100%);
-  border-color: rgba(24, 86, 103, 0.42);
+  width: 1.05rem;
+  height: 1.05rem;
+  background: radial-gradient(circle at 30% 30%, #f4fdff 0%, #8be0ed 30%, #3c99ae 58%, #184e60 100%);
+  border-color: rgba(19, 79, 95, 0.72);
   box-shadow:
-    0 0 0 4px rgba(112, 201, 219, 0.28),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.34);
+    0 0 0 4px rgba(103, 192, 211, 0.3),
+    0 6px 16px rgba(22, 81, 98, 0.22),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.48);
+}
+
+[data-bs-theme="light"] .april-map-challenge-row:hover .april-map-challenge-difficulty,
+[data-bs-theme="light"] .april-map-challenge-row:focus-visible .april-map-challenge-difficulty {
+  transform: scale(1.08);
 }
 
 .april-map-empty {
@@ -1299,7 +1355,7 @@ html[data-bs-theme="light"] #challenge-window .badge-info {
 }
 
 [data-bs-theme="light"] #april-country-name.april-map-panel-title {
-  color: #f2fbff;
+  color: #000000 !important;
 }
 
 [data-bs-theme="light"] .april-map-challenge-index {
@@ -1315,9 +1371,9 @@ html[data-bs-theme="light"] #challenge-window .badge-info {
 }
 
 [data-bs-theme="light"] .april-map-challenge-points {
-  border-color: rgba(102, 207, 217, 0.2);
-  background: linear-gradient(135deg, rgba(17, 45, 56, 0.92), rgba(12, 30, 38, 0.92));
-  color: #b8eef3;
+  border-color: rgba(35, 107, 127, 0.26);
+  background: linear-gradient(180deg, rgba(252, 255, 255, 0.98), rgba(231, 243, 248, 0.98));
+  color: #123440;
 }
 
 .april-map-challenge-row.is-solved .april-map-tag-category {

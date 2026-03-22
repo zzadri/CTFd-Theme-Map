@@ -746,44 +746,128 @@ if (root) {
   }
 
   function applyDirectLightModeColors() {
+    const titleEl = document.getElementById("april-country-name");
+    const clearInlineStyles = (selector, properties) => {
+      document.querySelectorAll(selector).forEach(el => {
+        properties.forEach(property => el.style.removeProperty(property));
+      });
+    };
+
     if (!isLightTheme()) {
+      if (titleEl) {
+        titleEl.style.removeProperty("color");
+      }
+
+      clearInlineStyles(".april-map-challenge-index", [
+        "background-color",
+        "background",
+        "border-color",
+        "color",
+        "border-width",
+        "border-style",
+        "box-shadow",
+      ]);
+      clearInlineStyles(".april-map-tag.april-map-tag-category", [
+        "color",
+        "border-color",
+        "background-color",
+        "background",
+        "border-width",
+        "border-style",
+        "box-shadow",
+      ]);
+      clearInlineStyles(".april-map-challenge-points", [
+        "border-color",
+        "background",
+        "color",
+        "border-width",
+        "border-style",
+        "box-shadow",
+      ]);
+      clearInlineStyles(".april-map-challenge-difficulty", [
+        "border-width",
+        "border-style",
+        "box-shadow",
+        "width",
+        "height",
+        "background",
+        "border-color",
+      ]);
       return;
     }
 
-    // Apply colors directly via inline styles for the 4 problematic elements
-    // This is the HIGHEST priority and will override everything else
+    // Apply colors directly via inline styles for the most conflict-prone elements.
     
     // 1. Title (april-country-name)
-    const titleEl = document.getElementById("april-country-name");
     if (titleEl) {
-      titleEl.style.color = "#f2fbff";
+      titleEl.style.color = "#103848";
     }
 
     // 2. Challenge indices (.april-map-challenge-index)
     document.querySelectorAll(".april-map-challenge-index").forEach(el => {
-      el.style.backgroundColor = "rgba(12, 35, 43, 0.94)";
-      el.style.borderColor = "rgba(102, 207, 217, 0.12)";
-      el.style.color = "#66cfd9";
+      el.style.background = "linear-gradient(180deg, rgba(252, 255, 255, 0.98), rgba(230, 242, 247, 0.98))";
+      el.style.borderColor = "rgba(35, 107, 127, 0.22)";
+      el.style.color = "#175467";
       el.style.borderWidth = "1px";
       el.style.borderStyle = "solid";
+      el.style.boxShadow = "inset 0 1px 0 rgba(255, 255, 255, 0.76), 0 6px 14px rgba(33, 96, 114, 0.08)";
     });
 
     // 3. Category tags (.april-map-tag.april-map-tag-category)
     document.querySelectorAll(".april-map-tag.april-map-tag-category").forEach(el => {
-      el.style.color = "#66cfd9";
-      el.style.borderColor = "rgba(102, 207, 217, 0.16)";
-      el.style.backgroundColor = "rgba(14, 42, 52, 0.9)";
+      el.style.color = "#1b6074";
+      el.style.borderColor = "rgba(35, 107, 127, 0.2)";
+      el.style.background = "linear-gradient(180deg, rgba(248, 253, 255, 0.98), rgba(233, 245, 250, 0.98))";
       el.style.borderWidth = "1px";
       el.style.borderStyle = "solid";
+      el.style.boxShadow = "inset 0 1px 0 rgba(255, 255, 255, 0.72), 0 6px 14px rgba(33, 96, 114, 0.06)";
     });
 
     // 4. Points (.april-map-challenge-points)
     document.querySelectorAll(".april-map-challenge-points").forEach(el => {
-      el.style.borderColor = "rgba(102, 207, 217, 0.2)";
-      el.style.background = "linear-gradient(135deg, rgba(17, 45, 56, 0.92), rgba(12, 30, 38, 0.92))";
-      el.style.color = "#b8eef3";
+      el.style.borderColor = "rgba(35, 107, 127, 0.26)";
+      el.style.background = "linear-gradient(180deg, rgba(252, 255, 255, 0.98), rgba(231, 243, 248, 0.98))";
+      el.style.color = "#123440";
       el.style.borderWidth = "1px";
       el.style.borderStyle = "solid";
+      el.style.boxShadow = "inset 0 1px 0 rgba(255, 255, 255, 0.74), 0 8px 18px rgba(33, 96, 114, 0.1)";
+    });
+
+    // 4b. Solved challenge badges in light mode
+    document.querySelectorAll(".april-map-challenge-row.is-solved .april-map-challenge-index").forEach(el => {
+      el.style.background = "linear-gradient(180deg, rgba(248, 255, 251, 0.98), rgba(228, 243, 234, 0.98))";
+      el.style.borderColor = "rgba(72, 149, 105, 0.24)";
+      el.style.color = "#256748";
+      el.style.boxShadow = "inset 0 1px 0 rgba(255, 255, 255, 0.78), 0 6px 14px rgba(41, 117, 79, 0.08)";
+    });
+
+    document.querySelectorAll(".april-map-challenge-row.is-solved .april-map-tag.april-map-tag-category").forEach(el => {
+      el.style.color = "#2c6c4a";
+      el.style.borderColor = "rgba(72, 149, 105, 0.22)";
+      el.style.background = "linear-gradient(180deg, rgba(249, 255, 251, 0.98), rgba(233, 246, 238, 0.98))";
+      el.style.boxShadow = "inset 0 1px 0 rgba(255, 255, 255, 0.76), 0 6px 14px rgba(41, 117, 79, 0.06)";
+    });
+
+    document.querySelectorAll(".april-map-challenge-row.is-solved .april-map-challenge-points").forEach(el => {
+      el.style.borderColor = "rgba(72, 149, 105, 0.24)";
+      el.style.background = "linear-gradient(180deg, rgba(248, 255, 251, 0.98), rgba(229, 243, 235, 0.98))";
+      el.style.color = "#215c40";
+      el.style.boxShadow = "inset 0 1px 0 rgba(255, 255, 255, 0.78), 0 8px 18px rgba(41, 117, 79, 0.08)";
+    });
+
+    // 5. Difficulty dots (.april-map-challenge-difficulty)
+    document.querySelectorAll(".april-map-challenge-difficulty").forEach(el => {
+      el.style.borderWidth = "1.5px";
+      el.style.borderStyle = "solid";
+      el.style.boxShadow = "0 0 0 4px rgba(103, 192, 211, 0.18), 0 4px 12px rgba(22, 81, 98, 0.12)";
+    });
+
+    document.querySelectorAll(".april-map-challenge-difficulty.is-unknown").forEach(el => {
+      el.style.width = "1.05rem";
+      el.style.height = "1.05rem";
+      el.style.background = "radial-gradient(circle at 30% 30%, #f4fdff 0%, #8be0ed 30%, #3c99ae 58%, #184e60 100%)";
+      el.style.borderColor = "rgba(19, 79, 95, 0.72)";
+      el.style.boxShadow = "0 0 0 4px rgba(103, 192, 211, 0.30), 0 6px 16px rgba(22, 81, 98, 0.22), inset 0 0 0 1px rgba(255, 255, 255, 0.48)";
     });
   }
 

@@ -4,7 +4,7 @@
   {{ super() }}
   <link
     rel="stylesheet"
-    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/april-map.css') }}?v=20260322b"
+    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/april-map.css') }}?v=20260322k"
   >
 {% endblock %}
 
@@ -101,5 +101,5 @@
     window.APRIL_MAP_CONFIG.isAdmin = {{ is_admin() | tojson }};
   </script>
   <script src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/april-map-data.js') }}?v=20260315g"></script>
-  <script type="module" src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/april-map.js') }}?v=20260319k"></script>
+  <script type="module" src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/april-map.js') }}?v=20260322p"></script>
 {% endblock %}
