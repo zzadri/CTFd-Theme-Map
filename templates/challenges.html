@@ -2,18 +2,26 @@
 
 {% set raw_theme_settings = Configs.theme_settings or {} %}
 {% set theme_settings = raw_theme_settings if raw_theme_settings is mapping else {} %}
+{% set map_scopes = {
+  'europe': {'asset': 'img/europe-map.svg', 'label': 'Europe'},
+  'world': {'asset': 'img/world-map.svg', 'label': 'World'},
+  'americas': {'asset': 'img/world-map.svg', 'label': 'Americas'},
+  'africa': {'asset': 'img/world-map.svg', 'label': 'Africa'},
+  'asia-pacific': {'asset': 'img/world-map.svg', 'label': 'Asia Pacific'}
+} %}
 {% set map_scope = theme_settings.get('map_scope', 'europe') %}
-{% if map_scope not in ['europe', 'world'] %}
+{% if map_scope not in map_scopes %}
   {% set map_scope = 'europe' %}
 {% endif %}
-{% set map_asset = 'img/world-map.svg' if map_scope == 'world' else 'img/europe-map.svg' %}
-{% set map_label = 'World' if map_scope == 'world' else 'Europe' %}
+{% set selected_map = map_scopes[map_scope] %}
+{% set map_asset = selected_map.asset %}
+{% set map_label = selected_map.label %}
 
 {% block stylesheets %}
   {{ super() }}
   <link
     rel="stylesheet"
-    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/ctfd-map.css') }}?v=20260322r"
+    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/ctfd-map.css') }}?v=20260322s"
   >
 {% endblock %}
 
@@ -110,18 +118,23 @@
     window.CTFD_MAP_CONFIG.mapScope = {{ map_scope | tojson }};
     window.CTFD_MAP_CONFIG.mapTexture = {{ theme_settings.get('map_texture', 'detailed') | tojson }};
     window.CTFD_MAP_CONFIG.mapMotion = {{ theme_settings.get('map_motion', 'off') | tojson }};
+    window.CTFD_MAP_CONFIG.mapZoom = {{ theme_settings.get('map_zoom', 100) | tojson }};
+    window.CTFD_MAP_CONFIG.mapOffsetX = {{ theme_settings.get('map_offset_x', 0) | tojson }};
+    window.CTFD_MAP_CONFIG.mapOffsetY = {{ theme_settings.get('map_offset_y', 0) | tojson }};
     window.CTFD_MAP_CONFIG.textureDarkIntensity = {{ theme_settings.get('texture_dark_intensity', 100) | tojson }};
     window.CTFD_MAP_CONFIG.textureLightIntensity = {{ theme_settings.get('texture_light_intensity', 135) | tojson }};
     window.CTFD_MAP_CONFIG.glowDarkIntensity = {{ theme_settings.get('glow_dark_intensity', 100) | tojson }};
     window.CTFD_MAP_CONFIG.glowLightIntensity = {{ theme_settings.get('glow_light_intensity', 115) | tojson }};
     window.CTFD_MAP_CONFIG.vignetteIntensity = {{ theme_settings.get('vignette_intensity', 100) | tojson }};
     window.CTFD_MAP_CONFIG.countryGlowIntensity = {{ theme_settings.get('country_glow_intensity', 100) | tojson }};
+    window.CTFD_MAP_CONFIG.usedCountryClarity = {{ theme_settings.get('used_country_clarity', 100) | tojson }};
+    window.CTFD_MAP_CONFIG.unusedCountryClarity = {{ theme_settings.get('unused_country_clarity', 100) | tojson }};
     window.CTFD_MAP_CONFIG.panelVisibleRows = {{ theme_settings.get('panel_visible_rows', 5) | tojson }};
     window.CTFD_MAP_CONFIG.desktopPanelWidth = {{ theme_settings.get('desktop_panel_width', 540) | tojson }};
     window.CTFD_MAP_CONFIG.challengeRowDensity = {{ theme_settings.get('challenge_row_density', 'comfortable') | tojson }};
     window.CTFD_MAP_CONFIG.challengeModalSize = {{ theme_settings.get('challenge_modal_size', 'md') | tojson }};
     window.CTFD_MAP_CONFIG.isAdmin = {{ is_admin() | tojson }};
   </script>
-  <script src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/ctfd-map-data.js') }}?v=20260322b"></script>
-  <script type="module" src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/ctfd-map.js') }}?v=20260322t"></script>
+  <script src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/ctfd-map-data.js') }}?v=20260322c"></script>
+  <script type="module" src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/ctfd-map.js') }}?v=20260322x"></script>
 {% endblock %}

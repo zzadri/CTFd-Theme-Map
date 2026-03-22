@@ -93,6 +93,7 @@ The repository currently ships with:
 - `static/img/world-map.svg`
 
 The challenge page defaults to `europe-map.svg`, but this can now be changed from admin theme settings.
+Regional scopes such as `americas`, `africa`, and `asia-pacific` reuse the world SVG and auto-fit to the selected countries.
 
 ## Theme Settings
 
@@ -100,15 +101,20 @@ The theme supports the native CTFd `Theme Settings` JSON field in the admin conf
 
 Available keys:
 
-- `map_scope`: `europe` or `world`
+- `map_scope`: `europe`, `world`, `americas`, `africa`, or `asia-pacific`
 - `map_texture`: `detailed`, `soft`, or `off`
 - `map_motion`: `off` or `on`
+- `map_zoom`: `50` to `200`
+- `map_offset_x`: `-30` to `30`
+- `map_offset_y`: `-30` to `30`
 - `texture_dark_intensity`: `0` to `500`
 - `texture_light_intensity`: `0` to `220`
 - `glow_dark_intensity`: `0` to `220`
 - `glow_light_intensity`: `0` to `220`
 - `vignette_intensity`: `0` to `180`
 - `country_glow_intensity`: `50` to `220`
+- `used_country_clarity`: `40` to `180`
+- `unused_country_clarity`: `40` to `180`
 - `panel_visible_rows`: integer from `3` to `10`
 - `desktop_panel_width`: integer from `380` to `720`
 - `challenge_row_density`: `compact`, `comfortable`, or `spacious`
@@ -121,12 +127,17 @@ Example:
   "map_scope": "world",
   "map_texture": "detailed",
   "map_motion": "on",
+  "map_zoom": 110,
+  "map_offset_x": 6,
+  "map_offset_y": -2,
   "texture_dark_intensity": 115,
   "texture_light_intensity": 150,
   "glow_dark_intensity": 100,
   "glow_light_intensity": 125,
   "vignette_intensity": 90,
   "country_glow_intensity": 110,
+  "used_country_clarity": 115,
+  "unused_country_clarity": 80,
   "panel_visible_rows": 6,
   "desktop_panel_width": 560,
   "challenge_row_density": "comfortable",

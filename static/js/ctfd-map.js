@@ -2,6 +2,39 @@ const config = window.CTFD_MAP_CONFIG || {};
 const root = document.querySelector(".ctfd-map-root");
 const themeSettings = window.init?.themeSettings || {};
 const MODAL_SIZE_CLASSES = ["modal-sm", "modal-lg", "modal-xl"];
+const MAP_SCOPE_OPTIONS = ["europe", "world", "americas", "africa", "asia-pacific"];
+const MAP_FIT_OPTIONS = {
+  europe: {
+    useOutlierFilter: true,
+    centerMode: "bounds",
+    horizontalPaddingRatio: 0.12,
+    verticalPaddingRatio: 0.16,
+  },
+  world: {
+    useOutlierFilter: false,
+    centerMode: "bounds",
+    horizontalPaddingRatio: 0.06,
+    verticalPaddingRatio: 0.08,
+  },
+  americas: {
+    useOutlierFilter: false,
+    centerMode: "median",
+    horizontalPaddingRatio: 0.1,
+    verticalPaddingRatio: 0.12,
+  },
+  africa: {
+    useOutlierFilter: false,
+    centerMode: "median",
+    horizontalPaddingRatio: 0.11,
+    verticalPaddingRatio: 0.14,
+  },
+  "asia-pacific": {
+    useOutlierFilter: false,
+    centerMode: "median",
+    horizontalPaddingRatio: 0.11,
+    verticalPaddingRatio: 0.13,
+  },
+};
 
 const DIFFICULTY_META = [
   { key: "intro", label: "Intro", matches: ["intro"], tone: "is-intro" },
@@ -31,7 +64,11 @@ if (root) {
   }
 
   function getMapScope() {
-    return normalizeChoice(config.mapScope || themeSettings.map_scope, ["europe", "world"], "europe");
+    return normalizeChoice(config.mapScope || themeSettings.map_scope, MAP_SCOPE_OPTIONS, "europe");
+  }
+
+  function getMapFitOptions() {
+    return MAP_FIT_OPTIONS[getMapScope()] || MAP_FIT_OPTIONS.europe;
   }
 
   function getMapTexture() {
@@ -40,6 +77,18 @@ if (root) {
 
   function getMapMotion() {
     return normalizeChoice(config.mapMotion || themeSettings.map_motion, ["off", "on"], "off");
+  }
+
+  function getMapZoom() {
+    return normalizeNumber(config.mapZoom ?? themeSettings.map_zoom, 100, 50, 200) / 100;
+  }
+
+  function getMapOffsetX() {
+    return normalizeNumber(config.mapOffsetX ?? themeSettings.map_offset_x, 0, -30, 30) / 100;
+  }
+
+  function getMapOffsetY() {
+    return normalizeNumber(config.mapOffsetY ?? themeSettings.map_offset_y, 0, -30, 30) / 100;
   }
 
   function getChallengeModalSize() {
@@ -110,6 +159,18 @@ if (root) {
       100,
       50,
       220
+    );
+  }
+
+  function getUsedCountryClarity() {
+    return Math.round(
+      normalizeNumber(config.usedCountryClarity ?? themeSettings.used_country_clarity, 100, 40, 180)
+    );
+  }
+
+  function getUnusedCountryClarity() {
+    return Math.round(
+      normalizeNumber(config.unusedCountryClarity ?? themeSettings.unused_country_clarity, 100, 40, 180)
     );
   }
 
@@ -203,6 +264,8 @@ if (root) {
     root.style.setProperty("--ctfd-glow-intensity-light", formatCssNumber(getGlowLightIntensity()));
     root.style.setProperty("--ctfd-vignette-intensity", formatCssNumber(getVignetteIntensity()));
     root.style.setProperty("--ctfd-country-glow-intensity", formatCssNumber(getCountryGlowIntensity()));
+    root.style.setProperty("--ctfd-used-country-clarity", String(getUsedCountryClarity()));
+    root.style.setProperty("--ctfd-unused-country-clarity", String(getUnusedCountryClarity()));
     root.style.setProperty("--ctfd-desktop-panel-width", `${getDesktopPanelWidth()}px`);
     elements.challengeList?.style.setProperty("--ctfd-visible-rows", String(getPanelVisibleRows()));
     applyChallengeModalSize();
@@ -442,7 +505,7 @@ if (root) {
 
     const response = await fetch(mapAsset, { credentials: "same-origin" });
     if (!response.ok) {
-      throw new Error(`Unable to fetch world map: ${response.status}`);
+      throw new Error(`Unable to fetch map SVG: ${response.status}`);
     }
 
     const svgMarkup = await response.text();
@@ -515,10 +578,15 @@ if (root) {
       return;
     }
 
-    const centeredBoxes = filterOutlierBoxes(boxes);
-    const targetBoxes = centeredBoxes.length >= Math.max(8, Math.ceil(boxes.length * 0.45))
-      ? centeredBoxes
-      : boxes;
+    const fitOptions = getMapFitOptions();
+    let targetBoxes = boxes;
+
+    if (fitOptions.useOutlierFilter) {
+      const centeredBoxes = filterOutlierBoxes(boxes);
+      targetBoxes = centeredBoxes.length >= Math.max(8, Math.ceil(boxes.length * 0.45))
+        ? centeredBoxes
+        : boxes;
+    }
 
     let minX = Number.POSITIVE_INFINITY;
     let minY = Number.POSITIVE_INFINITY;
@@ -542,13 +610,30 @@ if (root) {
       return;
     }
 
-    const horizontalPadding = width * 0.12;
-    const verticalPadding = height * 0.16;
+    const center = fitOptions.centerMode === "median"
+      ? {
+        x: median(targetBoxes.map(box => box.centerX)),
+        y: median(targetBoxes.map(box => box.centerY)),
+      }
+      : {
+        x: minX + width / 2,
+        y: minY + height / 2,
+      };
+
+    const horizontalPadding = width * fitOptions.horizontalPaddingRatio;
+    const verticalPadding = height * fitOptions.verticalPaddingRatio;
+    const zoomFactor = getMapZoom();
+    const halfWidth = (Math.max(center.x - minX, maxX - center.x) + horizontalPadding) / zoomFactor;
+    const halfHeight = (Math.max(center.y - minY, maxY - center.y) + verticalPadding) / zoomFactor;
+    const viewBoxWidth = halfWidth * 2;
+    const viewBoxHeight = halfHeight * 2;
+    const adjustedCenterX = center.x - (viewBoxWidth * getMapOffsetX());
+    const adjustedCenterY = center.y - (viewBoxHeight * getMapOffsetY());
     const viewBox = [
-      minX - horizontalPadding,
-      minY - verticalPadding,
-      width + horizontalPadding * 2,
-      height + verticalPadding * 2,
+      adjustedCenterX - halfWidth,
+      adjustedCenterY - halfHeight,
+      viewBoxWidth,
+      viewBoxHeight,
     ];
 
     svg.setAttribute("viewBox", viewBox.join(" "));

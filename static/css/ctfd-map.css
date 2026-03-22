@@ -29,6 +29,8 @@
   --ctfd-glow-intensity-light: 1.15;
   --ctfd-vignette-intensity: 1;
   --ctfd-country-glow-intensity: 1;
+  --ctfd-used-country-clarity: 100;
+  --ctfd-unused-country-clarity: 100;
   --ctfd-desktop-panel-width: 540px;
 }
 
@@ -310,7 +312,9 @@ body.ctfd-map-body .navbar {
   fill: rgba(10, 19, 25, 0.98);
   stroke: rgba(184, 238, 243, 0.08);
   opacity: 1;
-  filter: none;
+  filter:
+    saturate(calc(1 + (var(--ctfd-unused-country-clarity) - 100) * 0.004))
+    brightness(calc(1 + (var(--ctfd-unused-country-clarity) - 100) * 0.003));
 }
 
 .ctfd-map-viewport .country-node.has-challenges path,
@@ -318,6 +322,10 @@ body.ctfd-map-body .navbar {
   fill: rgba(12, 56, 65, 0.92);
   stroke: rgba(102, 207, 217, 0.28);
   cursor: pointer;
+  opacity: calc(1 + (var(--ctfd-used-country-clarity) - 100) * 0.0035);
+  filter:
+    saturate(calc(1 + (var(--ctfd-used-country-clarity) - 100) * 0.004))
+    brightness(calc(1 + (var(--ctfd-used-country-clarity) - 100) * 0.003));
 }
 
 .ctfd-map-viewport .country-node.has-challenges:hover path,
@@ -326,14 +334,21 @@ body.ctfd-map-body .navbar {
 .ctfd-map-viewport .country-node.has-challenges:focus-visible.landxx {
   fill: rgba(18, 78, 89, 0.95);
   stroke: rgba(184, 238, 243, 0.64);
-  filter: drop-shadow(0 0 calc(14px * var(--ctfd-country-glow-intensity)) rgba(102, 207, 217, 0.16));
+  filter:
+    saturate(calc(1 + (var(--ctfd-used-country-clarity) - 100) * 0.004))
+    brightness(calc(1 + (var(--ctfd-used-country-clarity) - 100) * 0.003))
+    drop-shadow(0 0 calc(14px * var(--ctfd-country-glow-intensity)) rgba(102, 207, 217, 0.16));
 }
 
 .ctfd-map-viewport .country-node.is-active path,
 .ctfd-map-viewport .country-node.is-active.landxx {
   fill: rgba(82, 189, 201, 0.2);
   stroke: rgba(235, 250, 252, 0.9);
-  filter: drop-shadow(0 0 calc(18px * var(--ctfd-country-glow-intensity)) rgba(102, 207, 217, 0.2));
+  opacity: calc(1 + (var(--ctfd-used-country-clarity) - 100) * 0.0035);
+  filter:
+    saturate(calc(1 + (var(--ctfd-used-country-clarity) - 100) * 0.004))
+    brightness(calc(1 + (var(--ctfd-used-country-clarity) - 100) * 0.003))
+    drop-shadow(0 0 calc(18px * var(--ctfd-country-glow-intensity)) rgba(102, 207, 217, 0.2));
 }
 
 [data-bs-theme="light"] .ctfd-map-viewport .landxx,
@@ -348,19 +363,30 @@ body.ctfd-map-body .navbar {
 [data-bs-theme="light"] .ctfd-map-viewport .country-node.is-dormant.landxx {
   fill: rgba(188, 212, 223, 0.94) !important;
   stroke: rgba(45, 101, 120, 0.28) !important;
+  filter:
+    saturate(calc(1 + (var(--ctfd-unused-country-clarity) - 100) * 0.004))
+    brightness(calc(1 + (var(--ctfd-unused-country-clarity) - 100) * 0.003));
 }
 
 [data-bs-theme="light"] .ctfd-map-viewport .country-node.has-challenges path,
 [data-bs-theme="light"] .ctfd-map-viewport .country-node.has-challenges.landxx {
   fill: rgba(151, 202, 217, 0.92) !important;
   stroke: rgba(36, 113, 133, 0.46) !important;
+  opacity: calc(1 + (var(--ctfd-used-country-clarity) - 100) * 0.0035);
+  filter:
+    saturate(calc(1 + (var(--ctfd-used-country-clarity) - 100) * 0.004))
+    brightness(calc(1 + (var(--ctfd-used-country-clarity) - 100) * 0.003));
 }
 
 [data-bs-theme="light"] .ctfd-map-viewport .country-node.is-active path,
 [data-bs-theme="light"] .ctfd-map-viewport .country-node.is-active.landxx {
   fill: rgba(92, 169, 192, 0.44) !important;
   stroke: rgba(21, 86, 104, 0.82) !important;
-  filter: drop-shadow(0 0 calc(12px * var(--ctfd-country-glow-intensity)) rgba(70, 143, 164, 0.2));
+  opacity: calc(1 + (var(--ctfd-used-country-clarity) - 100) * 0.0035);
+  filter:
+    saturate(calc(1 + (var(--ctfd-used-country-clarity) - 100) * 0.004))
+    brightness(calc(1 + (var(--ctfd-used-country-clarity) - 100) * 0.003))
+    drop-shadow(0 0 calc(12px * var(--ctfd-country-glow-intensity)) rgba(70, 143, 164, 0.2));
 }
 
 [data-bs-theme="light"] .ctfd-map-panel-overview,

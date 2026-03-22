@@ -4,6 +4,9 @@
     <select class="form-control custom-select" id="theme-map-scope" name="map_scope">
       <option value="europe">Europe</option>
       <option value="world">World</option>
+      <option value="americas">Americas</option>
+      <option value="africa">Africa</option>
+      <option value="asia-pacific">Asia Pacific</option>
     </select>
     <small class="form-text text-muted">
       Choisit la carte SVG et le scope des pays utilises sur la page challenges.
@@ -30,6 +33,57 @@
     </select>
     <small class="form-text text-muted">
       Anime tres legerement les halos et la texture de fond derriere la carte.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label for="theme-map-zoom">Map Zoom (%)</label>
+    <input
+      class="form-control"
+      id="theme-map-zoom"
+      name="map_zoom"
+      type="number"
+      min="50"
+      max="200"
+      step="5"
+      value="100"
+    >
+    <small class="form-text text-muted">
+      Controle le niveau de zoom global de la carte. Au-dessus de 100, la carte se rapproche.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label for="theme-map-offset-x">Map Offset X (%)</label>
+    <input
+      class="form-control"
+      id="theme-map-offset-x"
+      name="map_offset_x"
+      type="number"
+      min="-30"
+      max="30"
+      step="1"
+      value="0"
+    >
+    <small class="form-text text-muted">
+      Decale horizontalement la carte. Une valeur positive pousse la carte vers la droite.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label for="theme-map-offset-y">Map Offset Y (%)</label>
+    <input
+      class="form-control"
+      id="theme-map-offset-y"
+      name="map_offset_y"
+      type="number"
+      min="-30"
+      max="30"
+      step="1"
+      value="0"
+    >
+    <small class="form-text text-muted">
+      Decale verticalement la carte. Une valeur positive pousse la carte vers le bas.
     </small>
   </div>
 
@@ -132,6 +186,40 @@
     >
     <small class="form-text text-muted">
       Force du glow au hover et a l'etat actif sur les pays.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label for="theme-used-country-clarity">Used Country Clarity (%)</label>
+    <input
+      class="form-control"
+      id="theme-used-country-clarity"
+      name="used_country_clarity"
+      type="number"
+      min="40"
+      max="180"
+      step="5"
+      value="100"
+    >
+    <small class="form-text text-muted">
+      Rend les pays qui ont des challenges plus ou moins visibles.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label for="theme-unused-country-clarity">Unused Country Clarity (%)</label>
+    <input
+      class="form-control"
+      id="theme-unused-country-clarity"
+      name="unused_country_clarity"
+      type="number"
+      min="40"
+      max="180"
+      step="5"
+      value="100"
+    >
+    <small class="form-text text-muted">
+      Rend les pays sans challenge plus ou moins presents dans le fond.
     </small>
   </div>
 
