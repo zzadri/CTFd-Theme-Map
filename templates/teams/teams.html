@@ -4,46 +4,46 @@
   {{ super() }}
   <link
     rel="stylesheet"
-    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/april-map.css') }}?v=20260322k"
+    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/ctfd-map.css') }}?v=20260322r"
   >
   <link
     rel="stylesheet"
-    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/april-users.css') }}?v=20260319b"
+    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/ctfd-users.css') }}?v=20260319b"
   >
 {% endblock %}
 
 {% block content %}
-  <section class="april-users-v2">
-    <div class="april-users-v2__shell">
+  <section class="ctfd-users-v2">
+    <div class="ctfd-users-v2__shell">
       {% include "components/errors.html" %}
 
-      <header class="april-users-v2__head">
-        <div class="april-users-v2__head-copy">
-          <p class="april-users-v2__eyebrow">Directory</p>
-          <div class="april-users-v2__title-row">
+      <header class="ctfd-users-v2__head">
+        <div class="ctfd-users-v2__head-copy">
+          <p class="ctfd-users-v2__eyebrow">Directory</p>
+          <div class="ctfd-users-v2__title-row">
             <h1>{% trans %}Teams{% endtrans %}</h1>
-            <div class="april-users-v2__head-stats">
-              <span class="april-users-v2__stat-chip">
-                <span class="april-users-v2__stat-label">Total</span>
+            <div class="ctfd-users-v2__head-stats">
+              <span class="ctfd-users-v2__stat-chip">
+                <span class="ctfd-users-v2__stat-label">Total</span>
                 <strong>{{ teams.total }}</strong>
               </span>
-              <span class="april-users-v2__stat-chip">
-                <span class="april-users-v2__stat-label">Visible</span>
+              <span class="ctfd-users-v2__stat-chip">
+                <span class="ctfd-users-v2__stat-label">Visible</span>
                 <strong data-visible-count>{{ teams.items | length }}</strong>
               </span>
             </div>
           </div>
-          <p class="april-users-v2__summary">
+          <p class="ctfd-users-v2__summary">
             Public teams only. Search the current page by team name.
           </p>
         </div>
 
-        <section class="april-users-v2__toolbar" data-team-directory-toolbar>
-          <div class="april-users-v2__toolbar-controls april-users-v2__toolbar-controls--single">
-            <label class="april-users-v2__searchbox" for="april-team-search-input">
+        <section class="ctfd-users-v2__toolbar" data-team-directory-toolbar>
+          <div class="ctfd-users-v2__toolbar-controls ctfd-users-v2__toolbar-controls--single">
+            <label class="ctfd-users-v2__searchbox" for="ctfd-team-search-input">
               <span>Search</span>
               <input
-                id="april-team-search-input"
+                id="ctfd-team-search-input"
                 type="search"
                 autocomplete="off"
                 placeholder="Search teams"
@@ -52,60 +52,60 @@
               >
             </label>
 
-            <button type="button" class="april-users-v2__search-reset" data-team-filter-reset>
+            <button type="button" class="ctfd-users-v2__search-reset" data-team-filter-reset>
               Reset
             </button>
           </div>
         </section>
       </header>
 
-      <section class="april-users-v2__list" aria-live="polite" data-team-directory>
+      <section class="ctfd-users-v2__list" aria-live="polite" data-team-directory>
         {% for team in teams.items %}
           <article
-            class="april-user-card april-user-card--team"
+            class="ctfd-user-card ctfd-user-card--team"
             data-team-card
             data-search-name="{{ (team.name or '') | lower | e }}"
           >
             {% if scores_visible() %}
               <a
-                class="april-user-card__link"
+                class="ctfd-user-card__link"
                 href="{{ url_for('teams.public', team_id=team.id) }}"
                 aria-label="Open profile for {{ team.name }}"
               ></a>
             {% endif %}
 
-            <div class="april-user-card__body">
-              <div class="april-user-card__header">
-                <div class="april-user-card__avatar">{{ (team.name or '?')[:2] | upper }}</div>
+            <div class="ctfd-user-card__body">
+              <div class="ctfd-user-card__header">
+                <div class="ctfd-user-card__avatar">{{ (team.name or '?')[:2] | upper }}</div>
 
-                <div class="april-user-card__heading">
-                  <div class="april-user-card__title-row">
-                    <h2 class="april-user-card__name">{{ team.name | truncate(42) }}</h2>
+                <div class="ctfd-user-card__heading">
+                  <div class="ctfd-user-card__title-row">
+                    <h2 class="ctfd-user-card__name">{{ team.name | truncate(42) }}</h2>
                   </div>
 
-                  <div class="april-user-card__facts">
-                    <span class="april-user-card__fact april-user-card__fact--accent">
-                      <span class="april-user-card__fact-label">Members</span>
+                  <div class="ctfd-user-card__facts">
+                    <span class="ctfd-user-card__fact ctfd-user-card__fact--accent">
+                      <span class="ctfd-user-card__fact-label">Members</span>
                       <strong>{{ team.members | length }}</strong>
                     </span>
 
                     {% if scores_visible() %}
-                      <span class="april-user-card__fact april-user-card__fact--score">
-                        <span class="april-user-card__fact-label">Points</span>
+                      <span class="ctfd-user-card__fact ctfd-user-card__fact--score">
+                        <span class="ctfd-user-card__fact-label">Points</span>
                         <strong>{{ team.score or 0 }}</strong>
                       </span>
                     {% endif %}
 
                     {% if team.bracket_id %}
-                      <span class="april-user-card__fact">
-                        <span class="april-user-card__fact-label">Bracket</span>
+                      <span class="ctfd-user-card__fact">
+                        <span class="ctfd-user-card__fact-label">Bracket</span>
                         <strong>{{ team.bracket.name }}</strong>
                       </span>
                     {% endif %}
 
                     {% if team.oauth_id %}
-                      <span class="april-user-card__fact april-user-card__fact--muted">
-                        <span class="april-user-card__fact-label">Status</span>
+                      <span class="ctfd-user-card__fact ctfd-user-card__fact--muted">
+                        <span class="ctfd-user-card__fact-label">Status</span>
                         <strong>Official</strong>
                       </span>
                     {% endif %}
@@ -117,13 +117,13 @@
         {% endfor %}
       </section>
 
-      <div class="april-users-v2__empty" data-team-empty {% if teams.items %}hidden{% endif %}>
+      <div class="ctfd-users-v2__empty" data-team-empty {% if teams.items %}hidden{% endif %}>
         <h2>No team visible</h2>
         <p>Try another search value on this page.</p>
       </div>
 
       {% if teams.pages > 1 %}
-        <nav class="april-users-v2__pagination" aria-label="Team list pagination">
+        <nav class="ctfd-users-v2__pagination" aria-label="Team list pagination">
           <span>{% trans %}Page{% endtrans %}</span>
 
           {% if teams.page != 1 %}
@@ -147,5 +147,5 @@
 
 {% block scripts %}
   {{ Assets.js("assets/js/teams/list.js") }}
-  <script defer src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/april-teams.js') }}?v=20260315b"></script>
+  <script defer src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/ctfd-teams.js') }}?v=20260315b"></script>
 {% endblock %}

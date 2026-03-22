@@ -1,52 +1,52 @@
-.april-page {
+.ctfd-page {
   padding: 5.85rem 0 2.4rem;
   min-height: calc(100vh - 56px);
 }
 
-.april-page__shell {
+.ctfd-page__shell {
   width: min(1280px, calc(100vw - 40px));
   margin: 0 auto;
 }
 
-.april-page__card,
-.april-rules-card {
+.ctfd-page__card,
+.ctfd-rules-card {
   border: 1px solid rgba(102, 207, 217, 0.1);
   border-radius: 24px;
   background: rgba(7, 16, 21, 0.84);
   box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
 }
 
-.april-page__card {
+.ctfd-page__card {
   padding: 1.35rem;
 }
 
-.april-page__card h1,
-.april-page__card h2,
-.april-page__card h3,
-.april-rules-card h2 {
+.ctfd-page__card h1,
+.ctfd-page__card h2,
+.ctfd-page__card h3,
+.ctfd-rules-card h2 {
   color: #edf7fa;
   font-family: "Raleway", sans-serif;
 }
 
-.april-page__content {
+.ctfd-page__content {
   color: #d7e8eb;
   font-family: "Lato", sans-serif;
   line-height: 1.7;
 }
 
-.april-page__content > :first-child {
+.ctfd-page__content > :first-child {
   margin-top: 0;
 }
 
-.april-page__content > :last-child {
+.ctfd-page__content > :last-child {
   margin-bottom: 0;
 }
 
-.april-page__content a {
+.ctfd-page__content a {
   color: #b8eef3;
 }
 
-.april-page__content code {
+.ctfd-page__content code {
   padding: 0.15rem 0.35rem;
   border: 1px solid rgba(102, 207, 217, 0.12);
   border-radius: 8px;
@@ -54,15 +54,15 @@
   color: #edf7fa;
 }
 
-.april-page__content hr {
+.ctfd-page__content hr {
   border-color: rgba(102, 207, 217, 0.1);
 }
 
-.april-page__header {
+.ctfd-page__header {
   margin-bottom: 1rem;
 }
 
-.april-page__eyebrow {
+.ctfd-page__eyebrow {
   margin: 0 0 0.45rem;
   color: #66cfd9;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
@@ -71,7 +71,7 @@
   text-transform: uppercase;
 }
 
-.april-page__header h1 {
+.ctfd-page__header h1 {
   margin: 0;
   color: #edf7fa;
   font-family: "Raleway", sans-serif;
@@ -79,7 +79,7 @@
   line-height: 1;
 }
 
-.april-page__summary {
+.ctfd-page__summary {
   margin: 0.75rem 0 0;
   max-width: 48rem;
   color: #93aab0;
@@ -87,12 +87,12 @@
   line-height: 1.65;
 }
 
-.april-rules {
+.ctfd-rules {
   display: grid;
   gap: 0.95rem;
 }
 
-.april-rules__hero {
+.ctfd-rules__hero {
   padding: 1.25rem 1.35rem;
   border: 1px solid rgba(102, 207, 217, 0.1);
   border-radius: 24px;
@@ -100,104 +100,104 @@
   box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
 }
 
-.april-rules__grid {
+.ctfd-rules__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.85rem;
 }
 
-.april-rules-card {
+.ctfd-rules-card {
   padding: 1rem 1.1rem;
 }
 
-.april-rules-card--wide {
+.ctfd-rules-card--wide {
   grid-column: 1 / -1;
 }
 
-.april-rules-card h2 {
+.ctfd-rules-card h2 {
   margin: 0 0 0.85rem;
   font-size: 1.18rem;
 }
 
-.april-rules-card p,
-.april-rules-card li {
+.ctfd-rules-card p,
+.ctfd-rules-card li {
   color: #d7e8eb;
   font-family: "Lato", sans-serif;
   line-height: 1.65;
 }
 
-.april-rules-card ul {
+.ctfd-rules-card ul {
   margin: 0;
   padding-left: 1.1rem;
 }
 
-.april-rules-card li + li {
+.ctfd-rules-card li + li {
   margin-top: 0.4rem;
 }
 
-.april-rules-card__note {
+.ctfd-rules-card__note {
   color: #93aab0;
 }
 
 @media (max-width: 920px) {
-  .april-page__shell {
+  .ctfd-page__shell {
     width: min(calc(100vw - 24px), 100%);
   }
 
-  .april-rules__grid {
+  .ctfd-rules__grid {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 680px) {
-  .april-page {
+  .ctfd-page {
     padding-top: 5.7rem;
   }
 
-  .april-page__shell {
+  .ctfd-page__shell {
     width: calc(100vw - 16px);
   }
 
-  .april-page__card,
-  .april-rules__hero,
-  .april-rules-card {
+  .ctfd-page__card,
+  .ctfd-rules__hero,
+  .ctfd-rules-card {
     padding: 0.95rem;
     border-radius: 20px;
   }
 }
 
-[data-bs-theme="light"] .april-page__card,
-[data-bs-theme="light"] .april-rules-card,
-[data-bs-theme="light"] .april-rules__hero {
+[data-bs-theme="light"] .ctfd-page__card,
+[data-bs-theme="light"] .ctfd-rules-card,
+[data-bs-theme="light"] .ctfd-rules__hero {
   border-color: rgba(26, 90, 111, 0.22);
   background: rgba(244, 250, 253, 0.95);
   box-shadow: 0 12px 30px rgba(24, 78, 95, 0.12);
 }
 
-[data-bs-theme="light"] .april-page__eyebrow {
+[data-bs-theme="light"] .ctfd-page__eyebrow {
   color: #1e7388;
 }
 
-[data-bs-theme="light"] .april-page__card h1,
-[data-bs-theme="light"] .april-page__card h2,
-[data-bs-theme="light"] .april-page__card h3,
-[data-bs-theme="light"] .april-rules-card h2,
-[data-bs-theme="light"] .april-page__header h1 {
+[data-bs-theme="light"] .ctfd-page__card h1,
+[data-bs-theme="light"] .ctfd-page__card h2,
+[data-bs-theme="light"] .ctfd-page__card h3,
+[data-bs-theme="light"] .ctfd-rules-card h2,
+[data-bs-theme="light"] .ctfd-page__header h1 {
   color: #123440;
 }
 
-[data-bs-theme="light"] .april-page__content,
-[data-bs-theme="light"] .april-rules-card p,
-[data-bs-theme="light"] .april-rules-card li {
+[data-bs-theme="light"] .ctfd-page__content,
+[data-bs-theme="light"] .ctfd-rules-card p,
+[data-bs-theme="light"] .ctfd-rules-card li {
   color: #365762;
 }
 
-[data-bs-theme="light"] .april-page__summary,
-[data-bs-theme="light"] .april-rules-card__note {
+[data-bs-theme="light"] .ctfd-page__summary,
+[data-bs-theme="light"] .ctfd-rules-card__note {
   color: #4a5f6a;
 }
 
-[data-bs-theme="light"] .april-page__content code {
+[data-bs-theme="light"] .ctfd-page__content code {
   border-color: rgba(26, 90, 111, 0.2);
   background: rgba(237, 247, 251, 0.96);
   color: #123440;

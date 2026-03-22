@@ -1,0 +1,197 @@
+<form>
+  <div class="form-group">
+    <label for="theme-map-scope">Challenge Map</label>
+    <select class="form-control custom-select" id="theme-map-scope" name="map_scope">
+      <option value="europe">Europe</option>
+      <option value="world">World</option>
+    </select>
+    <small class="form-text text-muted">
+      Choisit la carte SVG et le scope des pays utilises sur la page challenges.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label for="theme-map-texture">Map Texture</label>
+    <select class="form-control custom-select" id="theme-map-texture" name="map_texture">
+      <option value="detailed">Detailed</option>
+      <option value="soft">Soft</option>
+      <option value="off">Off</option>
+    </select>
+    <small class="form-text text-muted">
+      Regle l'intensite de la texture de fond derriere la carte.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label for="theme-map-motion">Map Motion</label>
+    <select class="form-control custom-select" id="theme-map-motion" name="map_motion">
+      <option value="off">Off</option>
+      <option value="on">On</option>
+    </select>
+    <small class="form-text text-muted">
+      Anime tres legerement les halos et la texture de fond derriere la carte.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label for="theme-texture-dark-intensity">Dark Texture Intensity (%)</label>
+    <input
+      class="form-control"
+      id="theme-texture-dark-intensity"
+      name="texture_dark_intensity"
+      type="number"
+      min="0"
+      max="500"
+      step="5"
+      value="100"
+    >
+    <small class="form-text text-muted">
+      Intensite de la texture sur le fond de carte en dark mode.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label for="theme-texture-light-intensity">Light Texture Intensity (%)</label>
+    <input
+      class="form-control"
+      id="theme-texture-light-intensity"
+      name="texture_light_intensity"
+      type="number"
+      min="0"
+      max="220"
+      step="5"
+      value="135"
+    >
+    <small class="form-text text-muted">
+      Intensite de la texture sur le fond de carte en light mode.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label for="theme-glow-dark-intensity">Dark Glow Intensity (%)</label>
+    <input
+      class="form-control"
+      id="theme-glow-dark-intensity"
+      name="glow_dark_intensity"
+      type="number"
+      min="0"
+      max="220"
+      step="5"
+      value="100"
+    >
+    <small class="form-text text-muted">
+      Intensite des halos derriere la carte en dark mode.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label for="theme-glow-light-intensity">Light Glow Intensity (%)</label>
+    <input
+      class="form-control"
+      id="theme-glow-light-intensity"
+      name="glow_light_intensity"
+      type="number"
+      min="0"
+      max="220"
+      step="5"
+      value="115"
+    >
+    <small class="form-text text-muted">
+      Intensite des halos derriere la carte en light mode.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label for="theme-vignette-intensity">Vignette Intensity (%)</label>
+    <input
+      class="form-control"
+      id="theme-vignette-intensity"
+      name="vignette_intensity"
+      type="number"
+      min="0"
+      max="180"
+      step="5"
+      value="100"
+    >
+    <small class="form-text text-muted">
+      Intensite du vignettage global autour de la carte.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label for="theme-country-glow-intensity">Country Glow Intensity (%)</label>
+    <input
+      class="form-control"
+      id="theme-country-glow-intensity"
+      name="country_glow_intensity"
+      type="number"
+      min="50"
+      max="220"
+      step="5"
+      value="100"
+    >
+    <small class="form-text text-muted">
+      Force du glow au hover et a l'etat actif sur les pays.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label for="theme-panel-visible-rows">Visible Challenge Rows</label>
+    <input
+      class="form-control"
+      id="theme-panel-visible-rows"
+      name="panel_visible_rows"
+      type="number"
+      min="3"
+      max="10"
+      step="1"
+      value="5"
+    >
+    <small class="form-text text-muted">
+      Controle le nombre de challenges visibles dans le panneau avant scroll.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label for="theme-desktop-panel-width">Desktop Panel Width (px)</label>
+    <input
+      class="form-control"
+      id="theme-desktop-panel-width"
+      name="desktop_panel_width"
+      type="number"
+      min="380"
+      max="720"
+      step="10"
+      value="540"
+    >
+    <small class="form-text text-muted">
+      Largeur maximale du panneau lateral sur desktop.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label for="theme-challenge-row-density">Challenge Row Density</label>
+    <select class="form-control custom-select" id="theme-challenge-row-density" name="challenge_row_density">
+      <option value="compact">Compact</option>
+      <option value="comfortable">Comfortable</option>
+      <option value="spacious">Spacious</option>
+    </select>
+    <small class="form-text text-muted">
+      Change la hauteur et l'espacement des lignes de challenge.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label for="theme-challenge-modal-size">Challenge Modal Size</label>
+    <select class="form-control custom-select" id="theme-challenge-modal-size" name="challenge_modal_size">
+      <option value="md">Medium</option>
+      <option value="lg">Large</option>
+      <option value="xl">Extra Large</option>
+    </select>
+    <small class="form-text text-muted">
+      Ajuste la taille de la fenetre modale des challenges.
+    </small>
+  </div>
+
+  <button type="submit" class="btn btn-primary float-right">Build Theme Settings</button>
+</form>

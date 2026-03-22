@@ -1,5 +1,5 @@
-window.APRIL_MAP_CONFIG = {
-  ...(window.APRIL_MAP_CONFIG || {}),
+window.CTFD_MAP_CONFIG = {
+  ...(window.CTFD_MAP_CONFIG || {}),
   countries: {
     ad: {
       label: "Andorra",
@@ -1180,7 +1180,7 @@ window.APRIL_MAP_CONFIG = {
   },
 };
 
-const APRIL_EUROPE_COUNTRY_CODES = new Set([
+const CTFD_EUROPE_COUNTRY_CODES = new Set([
   "ad",
   "al",
   "at",
@@ -1230,8 +1230,14 @@ const APRIL_EUROPE_COUNTRY_CODES = new Set([
   "xk",
 ]);
 
-window.APRIL_MAP_CONFIG.countries = Object.fromEntries(
-  Object.entries(window.APRIL_MAP_CONFIG.countries || {}).filter(([countryCode]) =>
-    APRIL_EUROPE_COUNTRY_CODES.has(countryCode)
-  )
-);
+const CTFD_MAP_SCOPE = String(
+  window.CTFD_MAP_CONFIG?.mapScope || window.init?.themeSettings?.map_scope || "europe"
+).toLowerCase();
+
+if (CTFD_MAP_SCOPE !== "world") {
+  window.CTFD_MAP_CONFIG.countries = Object.fromEntries(
+    Object.entries(window.CTFD_MAP_CONFIG.countries || {}).filter(([countryCode]) =>
+      CTFD_EUROPE_COUNTRY_CODES.has(countryCode)
+    )
+  );
+}

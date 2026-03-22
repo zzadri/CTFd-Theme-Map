@@ -81,7 +81,7 @@ If a challenge has a supported `map:*` tag, it becomes available in the matching
 
 Country metadata is defined in:
 
-- `static/js/april-map-data.js`
+- `static/js/ctfd-map-data.js`
 
 The map asset is selected in:
 
@@ -92,24 +92,66 @@ The repository currently ships with:
 - `static/img/europe-map.svg`
 - `static/img/world-map.svg`
 
-The current challenge page is wired to `europe-map.svg` by default.
+The challenge page defaults to `europe-map.svg`, but this can now be changed from admin theme settings.
+
+## Theme Settings
+
+The theme supports the native CTFd `Theme Settings` JSON field in the admin config page.
+
+Available keys:
+
+- `map_scope`: `europe` or `world`
+- `map_texture`: `detailed`, `soft`, or `off`
+- `map_motion`: `off` or `on`
+- `texture_dark_intensity`: `0` to `500`
+- `texture_light_intensity`: `0` to `220`
+- `glow_dark_intensity`: `0` to `220`
+- `glow_light_intensity`: `0` to `220`
+- `vignette_intensity`: `0` to `180`
+- `country_glow_intensity`: `50` to `220`
+- `panel_visible_rows`: integer from `3` to `10`
+- `desktop_panel_width`: integer from `380` to `720`
+- `challenge_row_density`: `compact`, `comfortable`, or `spacious`
+- `challenge_modal_size`: `md`, `lg`, or `xl`
+
+Example:
+
+```json
+{
+  "map_scope": "world",
+  "map_texture": "detailed",
+  "map_motion": "on",
+  "texture_dark_intensity": 115,
+  "texture_light_intensity": 150,
+  "glow_dark_intensity": 100,
+  "glow_light_intensity": 125,
+  "vignette_intensity": 90,
+  "country_glow_intensity": 110,
+  "panel_visible_rows": 6,
+  "desktop_panel_width": 560,
+  "challenge_row_density": "comfortable",
+  "challenge_modal_size": "lg"
+}
+```
+
+The admin UI also exposes these settings through the theme builder modal, so manual JSON editing is optional.
 
 ## Customization
 
 Main customization points:
 
-- Map styles: `static/css/april-map.css`
-- Map behavior: `static/js/april-map.js`
-- Country dataset: `static/js/april-map-data.js`
-- Content pages: `static/css/april-page.css`
-- Scoreboard: `static/css/april-scoreboard.css`
-- Users and teams: `static/css/april-users.css`
+- Map styles: `static/css/ctfd-map.css`
+- Map behavior: `static/js/ctfd-map.js`
+- Country dataset: `static/js/ctfd-map-data.js`
+- Content pages: `static/css/ctfd-page.css`
+- Scoreboard: `static/css/ctfd-scoreboard.css`
+- Users and teams: `static/css/ctfd-users.css`
 
 ## Public Naming
 
 The public project name is `CTFd-Theme-Map`.
 
-Some internal asset filenames still use the historical `april-*` prefix. This is kept as an implementation detail for compatibility and does not affect installation, activation, or public branding.
+Internal asset and class prefixes use the neutral `ctfd-*` naming for consistency with the public project.
 
 ## Limitations
 

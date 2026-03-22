@@ -1,86 +1,86 @@
-﻿{% extends "base.html" %}
+{% extends "base.html" %}
 
 {% block stylesheets %}
   {{ super() }}
   <link
     rel="stylesheet"
-    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/april-map.css') }}?v=20260322k"
+    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/ctfd-map.css') }}?v=20260322r"
   >
   <link
     rel="stylesheet"
-    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/april-scoreboard.css') }}?v=20260319b"
+    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/ctfd-scoreboard.css') }}?v=20260319b"
   >
 {% endblock %}
 
 {% block content %}
-  <section class="april-scoreboard" data-april-scoreboard data-mode-label="{{ get_mode_as_word(capitalize=True) }}" data-all-label="{% trans %}All{% endtrans %}">
-    <div class="april-scoreboard__shell">
+  <section class="ctfd-scoreboard" data-ctfd-scoreboard data-mode-label="{{ get_mode_as_word(capitalize=True) }}" data-all-label="{% trans %}All{% endtrans %}">
+    <div class="ctfd-scoreboard__shell">
       {% include "components/errors.html" %}
 
-      <header class="april-scoreboard__hero">
-        <div class="april-scoreboard__hero-head">
+      <header class="ctfd-scoreboard__hero">
+        <div class="ctfd-scoreboard__hero-head">
           <div>
-            <p class="april-scoreboard__eyebrow">Live Ranking</p>
+            <p class="ctfd-scoreboard__eyebrow">Live Ranking</p>
             <h1>{% trans %}Scoreboard{% endtrans %}</h1>
             <p>
               Follow live progression on the graph, then inspect the current ranking below.
             </p>
           </div>
 
-          <div class="april-scoreboard__statline">
-            <span class="april-scoreboard__chip">
-              <span class="april-scoreboard__label">Mode</span>
+          <div class="ctfd-scoreboard__statline">
+            <span class="ctfd-scoreboard__chip">
+              <span class="ctfd-scoreboard__label">Mode</span>
               <strong>{{ get_mode_as_word(capitalize=True) }}</strong>
             </span>
-            <span class="april-scoreboard__chip">
-              <span class="april-scoreboard__label">Window</span>
+            <span class="ctfd-scoreboard__chip">
+              <span class="ctfd-scoreboard__label">Window</span>
               <strong>Top 10</strong>
             </span>
           </div>
         </div>
       </header>
 
-      <section class="april-scoreboard__graph-panel">
-        <div class="april-scoreboard__panel-head">
+      <section class="ctfd-scoreboard__graph-panel">
+        <div class="ctfd-scoreboard__panel-head">
           <div>
-            <p class="april-scoreboard__subline">Progression</p>
+            <p class="ctfd-scoreboard__subline">Progression</p>
             <h2>Score evolution</h2>
           </div>
         </div>
 
-        <div class="april-scoreboard__graph-wrap">
-          <div id="april-scoreboard-graph" class="april-scoreboard__graph" aria-live="polite"></div>
-          <div id="april-scoreboard-graph-empty" class="april-scoreboard__graph-empty" hidden>
+        <div class="ctfd-scoreboard__graph-wrap">
+          <div id="ctfd-scoreboard-graph" class="ctfd-scoreboard__graph" aria-live="polite"></div>
+          <div id="ctfd-scoreboard-graph-empty" class="ctfd-scoreboard__graph-empty" hidden>
             No graph data yet.
           </div>
-          <div id="april-scoreboard-legend" class="april-scoreboard__legend" aria-label="Graph legend"></div>
+          <div id="ctfd-scoreboard-legend" class="ctfd-scoreboard__legend" aria-label="Graph legend"></div>
         </div>
       </section>
 
-      <section class="april-scoreboard__board-panel">
-        <div class="april-scoreboard__panel-head">
+      <section class="ctfd-scoreboard__board-panel">
+        <div class="ctfd-scoreboard__panel-head">
           <div>
-            <p class="april-scoreboard__subline">Standings</p>
+            <p class="ctfd-scoreboard__subline">Standings</p>
             <h2>Current ranking</h2>
           </div>
         </div>
 
-        <div id="april-scoreboard-filters" class="april-scoreboard__filters" hidden></div>
+        <div id="ctfd-scoreboard-filters" class="ctfd-scoreboard__filters" hidden></div>
 
-        <div id="april-scoreboard-table-wrap" class="april-scoreboard__table-wrap" hidden>
-          <table class="april-scoreboard__table">
+        <div id="ctfd-scoreboard-table-wrap" class="ctfd-scoreboard__table-wrap" hidden>
+          <table class="ctfd-scoreboard__table">
             <thead>
               <tr>
                 <th>{% trans %}Place{% endtrans %}</th>
                 <th>{{ get_mode_as_word(capitalize=True) }}</th>
-                <th class="april-scoreboard__score">{% trans %}Score{% endtrans %}</th>
+                <th class="ctfd-scoreboard__score">{% trans %}Score{% endtrans %}</th>
               </tr>
             </thead>
-            <tbody id="april-scoreboard-rows"></tbody>
+            <tbody id="ctfd-scoreboard-rows"></tbody>
           </table>
         </div>
 
-        <div id="april-scoreboard-empty" class="april-scoreboard__empty" hidden>
+        <div id="ctfd-scoreboard-empty" class="ctfd-scoreboard__empty" hidden>
           <div>
             <h3>{% trans %}Scoreboard is empty{% endtrans %}</h3>
             <p>No visible ranking data yet.</p>
@@ -95,6 +95,6 @@
   {{ super() }}
   <script
     defer
-    src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/april-scoreboard.js') }}?v=20260315a"
+    src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/ctfd-scoreboard.js') }}?v=20260315a"
   ></script>
 {% endblock %}

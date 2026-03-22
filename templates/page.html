@@ -4,11 +4,11 @@
   {{ super() }}
   <link
     rel="stylesheet"
-    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/april-map.css') }}?v=20260322k"
+    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/ctfd-map.css') }}?v=20260322r"
   >
   <link
     rel="stylesheet"
-    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/april-page.css') }}?v=20260319b"
+    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/ctfd-page.css') }}?v=20260319b"
   >
 {% endblock %}
 
@@ -19,18 +19,18 @@
   {% set has_custom_rules_content = content | striptags | trim %}
 
   {% if is_rules_page %}
-    <section class="april-page april-page--rules">
-      <div class="april-page__shell april-rules">
-        <header class="april-rules__hero">
-          <p class="april-page__eyebrow">Mission Brief</p>
+    <section class="ctfd-page ctfd-page--rules">
+      <div class="ctfd-page__shell ctfd-rules">
+        <header class="ctfd-rules__hero">
+          <p class="ctfd-page__eyebrow">Mission Brief</p>
           <h1>{{ title or 'Rules' }}</h1>
-          <p class="april-page__summary">
+          <p class="ctfd-page__summary">
             Keep the event fair, keep the infrastructure safe, and stay within the expected scope. Edit the CTFd page with route <code>rules</code> if you want to replace or extend these notes.
           </p>
         </header>
 
-        <div class="april-rules__grid">
-          <section class="april-rules-card">
+        <div class="ctfd-rules__grid">
+          <section class="ctfd-rules-card">
             <h2>Fair Play</h2>
             <ul>
               <li>Play with your own account only.</li>
@@ -39,7 +39,7 @@
             </ul>
           </section>
 
-          <section class="april-rules-card">
+          <section class="ctfd-rules-card">
             <h2>Allowed Scope</h2>
             <ul>
               <li>Interact only with infrastructure and services explicitly provided for the CTF.</li>
@@ -48,7 +48,7 @@
             </ul>
           </section>
 
-          <section class="april-rules-card">
+          <section class="ctfd-rules-card">
             <h2>Forbidden Actions</h2>
             <ul>
               <li>No denial of service, brute-force flooding, or disruption of the platform.</li>
@@ -57,7 +57,7 @@
             </ul>
           </section>
 
-          <section class="april-rules-card">
+          <section class="ctfd-rules-card">
             <h2>Flags And Accounts</h2>
             <ul>
               <li>Submit flags in the exact expected format.</li>
@@ -66,7 +66,7 @@
             </ul>
           </section>
 
-          <section class="april-rules-card">
+          <section class="ctfd-rules-card">
             <h2>Communication</h2>
             <ul>
               <li>Use the official support channel for outages, broken challenges, or unclear statements.</li>
@@ -75,7 +75,7 @@
             </ul>
           </section>
 
-          <section class="april-rules-card">
+          <section class="ctfd-rules-card">
             <h2>Enforcement</h2>
             <ul>
               <li>Organizers may remove solves, suspend teams, or disqualify accounts for abusive behavior.</li>
@@ -84,14 +84,14 @@
             </ul>
           </section>
 
-          <section class="april-rules-card april-rules-card--wide">
+          <section class="ctfd-rules-card ctfd-rules-card--wide">
             <h2>Organizer Addendum</h2>
             {% if has_custom_rules_content %}
-              <div class="april-page__content">
+              <div class="ctfd-page__content">
                 {{ content | safe }}
               </div>
             {% else %}
-              <p class="april-rules-card__note">
+              <p class="ctfd-rules-card__note">
                 No custom content has been added yet. Create or edit the CTFd page with route <code>rules</code> in Admin &gt; Pages to customize this section.
               </p>
             {% endif %}
@@ -100,17 +100,17 @@
       </div>
     </section>
   {% else %}
-    <section class="april-page">
-      <div class="april-page__shell">
-        <article class="april-page__card">
+    <section class="ctfd-page">
+      <div class="ctfd-page__shell">
+        <article class="ctfd-page__card">
           {% if title and not is_index_page %}
-            <header class="april-page__header">
-              <p class="april-page__eyebrow">Page</p>
+            <header class="ctfd-page__header">
+              <p class="ctfd-page__eyebrow">Page</p>
               <h1>{{ title }}</h1>
             </header>
           {% endif %}
 
-          <div class="april-page__content">
+          <div class="ctfd-page__content">
             {{ content | safe }}
           </div>
         </article>

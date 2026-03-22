@@ -1,17 +1,17 @@
-﻿(() => {
-  const root = document.querySelector('[data-april-scoreboard]');
+(() => {
+  const root = document.querySelector('[data-ctfd-scoreboard]');
   if (!root) {
     return;
   }
 
   const elements = {
-    graph: document.getElementById('april-scoreboard-graph'),
-    graphEmpty: document.getElementById('april-scoreboard-graph-empty'),
-    legend: document.getElementById('april-scoreboard-legend'),
-    filters: document.getElementById('april-scoreboard-filters'),
-    tableWrap: document.getElementById('april-scoreboard-table-wrap'),
-    rows: document.getElementById('april-scoreboard-rows'),
-    empty: document.getElementById('april-scoreboard-empty'),
+    graph: document.getElementById('ctfd-scoreboard-graph'),
+    graphEmpty: document.getElementById('ctfd-scoreboard-graph-empty'),
+    legend: document.getElementById('ctfd-scoreboard-legend'),
+    filters: document.getElementById('ctfd-scoreboard-filters'),
+    tableWrap: document.getElementById('ctfd-scoreboard-table-wrap'),
+    rows: document.getElementById('ctfd-scoreboard-rows'),
+    empty: document.getElementById('ctfd-scoreboard-empty'),
   };
 
   const state = {
@@ -123,7 +123,7 @@
 
     const allButton = document.createElement('button');
     allButton.type = 'button';
-    allButton.className = 'april-scoreboard__filter';
+    allButton.className = 'ctfd-scoreboard__filter';
     if (state.activeBracket === null) {
       allButton.classList.add('is-active');
     }
@@ -143,7 +143,7 @@
     state.brackets.forEach(bracket => {
       const button = document.createElement('button');
       button.type = 'button';
-      button.className = 'april-scoreboard__filter';
+      button.className = 'ctfd-scoreboard__filter';
       if (String(state.activeBracket) === String(bracket.id)) {
         button.classList.add('is-active');
       }
@@ -179,32 +179,32 @@
       const row = document.createElement('tr');
 
       const placeCell = document.createElement('td');
-      placeCell.className = 'april-scoreboard__place';
+      placeCell.className = 'ctfd-scoreboard__place';
       const placeValue = document.createElement('span');
-      placeValue.className = 'april-scoreboard__place-value';
+      placeValue.className = 'ctfd-scoreboard__place-value';
       placeValue.textContent = String(index + 1);
       placeCell.appendChild(placeValue);
 
       const nameCell = document.createElement('td');
       const nameLink = document.createElement('a');
-      nameLink.className = 'april-scoreboard__name-link';
+      nameLink.className = 'ctfd-scoreboard__name-link';
       nameLink.href = standing.account_url;
       nameLink.textContent = standing.name;
       nameCell.appendChild(nameLink);
 
       const meta = document.createElement('div');
-      meta.className = 'april-scoreboard__table-meta';
+      meta.className = 'ctfd-scoreboard__table-meta';
 
       if (standing.bracket_name) {
         const bracketChip = document.createElement('span');
-        bracketChip.className = 'april-scoreboard__table-chip';
+        bracketChip.className = 'ctfd-scoreboard__table-chip';
         bracketChip.textContent = standing.bracket_name;
         meta.appendChild(bracketChip);
       }
 
       if (Array.isArray(standing.members) && standing.members.length) {
         const memberChip = document.createElement('span');
-        memberChip.className = 'april-scoreboard__table-chip april-scoreboard__table-chip--accent';
+        memberChip.className = 'ctfd-scoreboard__table-chip ctfd-scoreboard__table-chip--accent';
         memberChip.textContent = `${standing.members.length} members`;
         meta.appendChild(memberChip);
       }
@@ -214,9 +214,9 @@
       }
 
       const scoreCell = document.createElement('td');
-      scoreCell.className = 'april-scoreboard__score';
+      scoreCell.className = 'ctfd-scoreboard__score';
       const scoreValue = document.createElement('span');
-      scoreValue.className = 'april-scoreboard__score-value';
+      scoreValue.className = 'ctfd-scoreboard__score-value';
       scoreValue.textContent = String(standing.score);
       scoreCell.appendChild(scoreValue);
 
@@ -265,18 +265,18 @@
 
     seriesList.forEach(series => {
       const item = document.createElement('div');
-      item.className = 'april-scoreboard__legend-item';
+      item.className = 'ctfd-scoreboard__legend-item';
 
       const swatch = document.createElement('span');
-      swatch.className = 'april-scoreboard__legend-swatch';
+      swatch.className = 'ctfd-scoreboard__legend-swatch';
       swatch.style.background = series.color;
 
       const name = document.createElement('span');
-      name.className = 'april-scoreboard__legend-name';
+      name.className = 'ctfd-scoreboard__legend-name';
       name.textContent = series.name;
 
       const score = document.createElement('span');
-      score.className = 'april-scoreboard__legend-score';
+      score.className = 'ctfd-scoreboard__legend-score';
       score.textContent = `${series.finalScore} pts`;
 
       item.appendChild(swatch);
@@ -321,26 +321,26 @@
     const scaleY = value => padding.top + innerHeight - ((value - minY) / (maxY - minY)) * innerHeight;
 
     const svg = [];
-    svg.push(`<svg class="april-scoreboard__graph-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="Score progression graph">`);
+    svg.push(`<svg class="ctfd-scoreboard__graph-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="Score progression graph">`);
 
     const yTicks = 5;
     for (let tickIndex = 0; tickIndex <= yTicks; tickIndex += 1) {
       const value = minY + ((maxY - minY) / yTicks) * tickIndex;
       const y = scaleY(value);
-      svg.push(`<line class="april-scoreboard__grid-line" x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}"></line>`);
-      svg.push(`<text class="april-scoreboard__axis-label" x="${padding.left - 12}" y="${y + 4}" text-anchor="end">${escapeHtml(Math.round(value))}</text>`);
+      svg.push(`<line class="ctfd-scoreboard__grid-line" x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}"></line>`);
+      svg.push(`<text class="ctfd-scoreboard__axis-label" x="${padding.left - 12}" y="${y + 4}" text-anchor="end">${escapeHtml(Math.round(value))}</text>`);
     }
 
     const xTicks = 4;
     for (let tickIndex = 0; tickIndex <= xTicks; tickIndex += 1) {
       const value = minX + ((maxX - minX) / xTicks) * tickIndex;
       const x = scaleX(value);
-      svg.push(`<line class="april-scoreboard__grid-line--vertical" x1="${x}" y1="${padding.top}" x2="${x}" y2="${height - padding.bottom}"></line>`);
-      svg.push(`<text class="april-scoreboard__axis-label" x="${x}" y="${height - 10}" text-anchor="middle">${escapeHtml(formatTime(value))}</text>`);
+      svg.push(`<line class="ctfd-scoreboard__grid-line--vertical" x1="${x}" y1="${padding.top}" x2="${x}" y2="${height - padding.bottom}"></line>`);
+      svg.push(`<text class="ctfd-scoreboard__axis-label" x="${x}" y="${height - 10}" text-anchor="middle">${escapeHtml(formatTime(value))}</text>`);
     }
 
-    svg.push(`<line class="april-scoreboard__axis-line" x1="${padding.left}" y1="${height - padding.bottom}" x2="${width - padding.right}" y2="${height - padding.bottom}"></line>`);
-    svg.push(`<line class="april-scoreboard__axis-line" x1="${padding.left}" y1="${padding.top}" x2="${padding.left}" y2="${height - padding.bottom}"></line>`);
+    svg.push(`<line class="ctfd-scoreboard__axis-line" x1="${padding.left}" y1="${height - padding.bottom}" x2="${width - padding.right}" y2="${height - padding.bottom}"></line>`);
+    svg.push(`<line class="ctfd-scoreboard__axis-line" x1="${padding.left}" y1="${padding.top}" x2="${padding.left}" y2="${height - padding.bottom}"></line>`);
 
     seriesList.forEach(series => {
       const path = series.points
@@ -351,19 +351,19 @@
         })
         .join(' ');
 
-      svg.push(`<path class="april-scoreboard__series-line" d="${path}" stroke="${series.color}"></path>`);
+      svg.push(`<path class="ctfd-scoreboard__series-line" d="${path}" stroke="${series.color}"></path>`);
 
       series.points.forEach((point, pointIndex) => {
         const x = scaleX(point.x).toFixed(2);
         const y = scaleY(point.y).toFixed(2);
         const radius = pointIndex === series.points.length - 1 ? 5.25 : 4;
-        svg.push(`<circle class="april-scoreboard__series-point" cx="${x}" cy="${y}" r="${radius}" fill="${series.color}"></circle>`);
+        svg.push(`<circle class="ctfd-scoreboard__series-point" cx="${x}" cy="${y}" r="${radius}" fill="${series.color}"></circle>`);
       });
 
       const lastPoint = series.points[series.points.length - 1];
       const labelX = Math.min(scaleX(lastPoint.x) + 10, width - padding.right + 70);
       const labelY = Math.max(scaleY(lastPoint.y) - 10, padding.top + 12);
-      svg.push(`<text class="april-scoreboard__point-label" x="${labelX}" y="${labelY}" fill="${series.color}">${escapeHtml(series.name)}</text>`);
+      svg.push(`<text class="ctfd-scoreboard__point-label" x="${labelX}" y="${labelY}" fill="${series.color}">${escapeHtml(series.name)}</text>`);
     });
 
     svg.push('</svg>');
