@@ -825,7 +825,9 @@ if (root) {
   function updateMapAvailability() {
     state.mapNodes.forEach((node, countryCode) => {
       const hasEntries = hasCountryEntries(countryCode);
+      const isComplete = hasEntries && isCountryComplete(countryCode);
       node.classList.toggle("has-challenges", hasEntries);
+      node.classList.toggle("is-complete", isComplete);
       node.classList.toggle("is-dormant", !hasEntries);
       node.setAttribute("aria-disabled", String(!hasEntries));
       node.setAttribute("tabindex", hasEntries ? "0" : "-1");
@@ -834,6 +836,11 @@ if (root) {
 
   function hasCountryEntries(countryCode) {
     return getCountryEntries(countryCode).length > 0;
+  }
+
+  function isCountryComplete(countryCode) {
+    const entries = getCountryEntries(countryCode);
+    return entries.length > 0 && entries.every(entry => Boolean(entry.challenge?.solved_by_me));
   }
 
   function toggleCountry(countryCode) {
@@ -1244,10 +1251,23 @@ if (root) {
       }
 
       const challenge = state.challengesById.get(challengeId);
+      if (!challenge) {
+        if (config.isAdmin) {
+          entries.push({
+            id: challengeId,
+            challenge: null,
+            missing: true,
+            source: "manual",
+          });
+          seenIds.add(challengeId);
+        }
+        return;
+      }
+
       entries.push({
         id: challengeId,
         challenge,
-        missing: !challenge,
+        missing: false,
         source: "manual",
       });
       seenIds.add(challengeId);

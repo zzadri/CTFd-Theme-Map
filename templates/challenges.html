@@ -22,7 +22,7 @@
   {{ super() }}
   <link
     rel="stylesheet"
-    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/ctfd-map.css') }}?v=20260323a"
+    href="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='css/ctfd-map.css') }}?v=20260323b"
   >
 {% endblock %}
 
@@ -138,5 +138,5 @@
     window.CTFD_MAP_CONFIG.isAdmin = {{ is_admin() | tojson }};
   </script>
   <script src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/ctfd-map-data.js') }}?v=20260322c"></script>
-  <script type="module" src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/ctfd-map.js') }}?v=20260322z"></script>
+  <script type="module" src="{{ url_for('views.themes_beta', theme=Configs.ctf_theme, path='js/ctfd-map.js') }}?v=20260329a"></script>
 {% endblock %}
